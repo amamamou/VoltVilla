@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Technecien index{% endblock %}
+
+{% block body %}
+    <h1>Technecien index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for technecien in techneciens %}
+            <tr>
+                <td>{{ technecien.id }}</td>
+                <td>{{ technecien.Nom }}</td>
+                <td>{{ technecien.Prenom }}</td>
+                <td>
+                    <a href="{{ path('app_technecien_show', {'id': technecien.id}) }}">show</a>
+                    <a href="{{ path('app_technecien_edit', {'id': technecien.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_technecien_new') }}">Create new</a>
+{% endblock %}
