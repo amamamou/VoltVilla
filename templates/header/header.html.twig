@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="C:\Users\DELL\Desktop\node_modules\@fortawesome\fontawesome-free\css\all.min.css">
+
+
+    <title>{% block title %}Register{% endblock %}</title>
+    
+    {% block stylesheets %}
+        <style>
+            /* Your provided CSS for the header */
+            .header {
+                position: fixed; /* Make the header fixed */
+                top: 0; /* Stick to the top of the viewport */
+                left: 0;
+                width: 100%; /* Occupy the full width of the viewport */
+                background-color: #ffffff; /* Adjust background color as needed */
+                padding: 10px 0; /* Adjust top and bottom padding */
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adding shadow to the bottom */
+                z-index: 1000; /* Ensure the header appears above other content */
+            }
+            .containerr {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .logo-text {
+                font-family: 'Oswald', sans-serif; /* Using Oswald for the logo text */
+                margin-top: 7px;
+            }
+            .logo-container {
+                display: flex;
+                align-items: center;
+            }
+            .logo {
+                height: 80px; /* Adjust logo height as needed */
+                margin-right: 10px; /* Adjust margin between logo and text */
+            }
+            .nav {
+                display: flex;
+                align-items: center;
+            }
+            .icons {
+                display: flex;
+                align-items: center;
+            }
+            .icon {
+                margin-right: 10px; /* Adjust margin between icons */
+            }
+        </style>
+    {% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="containerr">
+            <div class="logo-container">
+                <img src="images/vv.png" alt="VoltVilla Logo" class="logo">
+                <a href="/" style="text-decoration: none; color: inherit;">
+                    <span class="logo-text">VoltVilla</span>
+                </a>
+            </div>
+            <nav>
+                <div class="icons">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-492.31q-57.75 0-98.87-41.12Q340-574.56 340-632.31q0-57.75 41.13-98.87 41.12-41.13 98.87-41.13 57.75 0 98.87 41.13Q620-690.06 620-632.31q0 57.75-41.13 98.88-41.12 41.12-98.87 41.12ZM180-187.69v-88.93q0-29.38 15.96-54.42 15.96-25.04 42.66-38.5 59.3-29.07 119.65-43.61 60.35-14.54 121.73-14.54t121.73 14.54q60.35 14.54 119.65 43.61 26.7 13.46 42.66 38.5Q780-306 780-276.62v88.93H180Zm60-60h480v-28.93q0-12.15-7.04-22.5-7.04-10.34-19.11-16.88-51.7-25.46-105.42-38.58Q534.7-367.69 480-367.69q-54.7 0-108.43 13.11-53.72 13.12-105.42 38.58-12.07 6.54-19.11 16.88-7.04 10.35-7.04 22.5v28.93Zm240-304.62q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 384.62Z"/></svg>
+                            <a href="/signin"></a></span>
+                    <span class="icon shopping-bag-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+                            <path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/>
+                        </svg>
+                    </span>
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
+                    </span>
+                      <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000s"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>                    </span>
+                </div>
+            </nav>
+        </div>
+    </header>
+ <script>
+        // Check if Font Awesome is loaded
+        if (window.FontAwesome) {
+            console.log("Font Awesome is loaded.");
+        } else {
+            console.error("Font Awesome is not loaded.");
+        }
+    </script>
+    </body>
+    </html>

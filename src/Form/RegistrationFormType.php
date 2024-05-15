@@ -11,13 +11,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class RegistrationFormType extends AbstractType
 {
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'error_bubbling' => true,
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -25,14 +29,21 @@ class RegistrationFormType extends AbstractType
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
+                'error_bubbling' => true,
             ])
-            ->add('nom')
-            ->add('prenom')
-            ->add('adresse')
-            ->add('cp')
+            ->add('nom', null, [
+                'error_bubbling' => true,
+            ])
+            ->add('prenom', null, [
+                'error_bubbling' => true,
+            ])
+            ->add('adresse', null, [
+                'error_bubbling' => true,
+            ])
+            ->add('cp', null, [
+                'error_bubbling' => true,
+            ])
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
@@ -42,12 +53,11 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+                'error_bubbling' => true,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

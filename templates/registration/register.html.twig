@@ -2,18 +2,377 @@
 
 {% block title %}Register{% endblock %}
 
-{% block body %}
-    <h1>Register</h1>
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+       .header {
+                position: fixed; /* Make the header fixed */
+                top: 0; /* Stick to the top of the viewport */
+                left: 0;
+                width: 100%; /* Occupy the full width of the viewport */
+                background-color: #ffffff; /* Adjust background color as needed */
+                padding: 10px 0; /* Adjust top and bottom padding */
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adding shadow to the bottom */
+                z-index: 1000; /* Ensure the header appears above other content */
+            }
+            .containerr {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .logo-text {
+                font-family: 'Oswald', sans-serif; /* Using Oswald for the logo text */
+                margin-top: 7px;
+            }
+            .logo-container {
+                display: flex;
+                align-items: center;
+            }
+            .logo {
+                height: 80px; /* Adjust logo height as needed */
+                margin-right: 10px; /* Adjust margin between logo and text */
+            }
+            .nav {
+                display: flex;
+                align-items: center;
+            }
+            .icons {
+                display: flex;
+                align-items: center;
+            }
+            .icon {
+                margin-right: 10px; /* Adjust margin between icons */
+            }
+        /* CSS for the left and right parts */
+     .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+             font-family: 'Courier New', monospace; /* Use Courier New font */
+  position: relative; /* Ensure the header remains in the document flow */
 
-    {{ form_errors(registrationForm) }}
+        }
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+      .left-part {
+            flex: 0 0 50%;
+            max-width: 50%;
+            background-image: url('/images/im9.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+            margin-top:100px;
+        }
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+
+        .right-part {
+            margin-top:70px;
+              background-color: #f9f9f9;
+            flex: 0 0 50%;
+            max-width: 720px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-bottom:80px;
+        }
+        /* Style adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-part,
+            .right-part {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        /* Add these styles to your existing CSS */
+
+        .right-part input[type="text"],
+        .right-part input[type="password"],
+        .right-part input[type="email"],
+        .right-part input[type="checkbox"],
+        .right-part input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: transparent;
+            color: #000000;
+            border: 1px solid #000000; /* Adding border for contrast */
+        }
+
+        .right-part .signin {
+            background-color: #fff;
+            color: rgb(203, 53, 121);
+            border: none;
+            padding: 8px 16px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            align-self: center; /* Centering the button */
+            margin-top:5px;
+            margin-left:60px;
+        }
+
+        .right-part .signin:hover {
+            background-color: rgb(203, 53, 121);
+            color: #fff;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* Add spacing below the terms checkbox */
+        }
+
+        .terms-checkbox label {
+            margin-left: 5px; /* Add some spacing between the checkbox and the label */
+        }
+             .footer {
+              width: 100%; /* Occupy the full width of the viewport */
+            background-color: #ffffff; /* Adjust background color as needed */
+margin-top:40px;
+            }
+
+            .footer .container {
+            max-width: 1200px;
+            height:300px;
+            margin: 0 auto;
+            justify-content: space-between;
+            }
+
+            .footer-left,
+            .footer-right {
+            flex: 1;
+            }
+
+            .footer-left ul,
+            .footer-right ul {
+            list-style: none; /* Remove default list styles */
+            padding: 0; /* Remove default padding */
+            }
+            .footer-right{
+                margin-top:-70px;
+            }
+            .footer-left li,
+            .footer-right li {
+            margin-bottom: 10px; /* Adjust spacing between list items */
+            }
+
+            .footer-left a,
+            .footer-right a {
+            color: #333; /* Link color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s; /* Smooth transition for color change */
+            font-family: 'Courier New', monospace; /* Use Courier New font */
+            }
+
+            .footer-left a:hover,
+            .footer-right a:hover {
+            color: #555; /* Change link color on hover */
+            }
+
+            /* Additional CSS to align social media icons horizontally */
+            .footer-right ul li {
+            display: inline-block; /* Display list items inline */
+            margin-right: 10px; /* Adjust spacing between icons */
+            }
+            .explore-button {
+            padding: 10px 30px;
+            background-color: #100d07; /* Adjust the button background color */
+            color: #ffffff; /* Button text color */
+            font-size: 8px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+            }
+
+            .explore-button:hover {
+            background-color: #1c7694; /* Adjust the button background color on hover */
+            }
+
+            h3
+            {
+            font-family: 'Oswald', sans-serif; /* Using Oswald for the logo text */
+
+            }
+            .register-text {
+            font-family: 'Courier New', monospace;
+            color: #000000;
+            text-align:center;
+            margin-left:300px;
+            margin-top:-50px;
+            
+            }
+            .right-section h1 {
+            margin-top: -50px; /* Adjusted margin-top */
+            color: #000000;
+            font-size: 3rem;
+            font-family: 'Oswald', sans-serif;
+            cursor: pointer; /* Add cursor pointer */
+            text-decoration: none; /* Remove underline */
+            }
+            .already-signed-in {
+            font-family: 'Courier New', monospace;
+            color: #000000;
+            margin-top: 10px;
+            }
+
+            .already-signed-in a {
+            font-family: 'Courier New', monospace;
+            text-decoration: none;
+            color: #000000;
+            position: relative;
+            }
+
+            .already-signed-in a span {
+            position: relative;
+            }
+
+            .already-signed-in a:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 1px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+            }
+
+            .already-signed-in a:hover:before {
+            width: 0%;
+            }
+
+   .register-container {
+            display: flex; /* Make the container flex */
+        }
+         .error-message {
+        font-size: 12px; /* Adjust the font size */
+        color: red; /* Error message color */
+        margin-top: 5px; /* Add some space between the button and error messages */
+    }
+     .error-message {
+        font-size: 12px; /* Adjust the font size */
+        color: red; /* Error message color */
+        margin-top: 5px; /* Add some space between the button and error messages */
+    }
+
+    </style>
 {% endblock %}
+
+
+{% block body %}
+ <header class="header">
+        <div class="containerr">
+            <div class="logo-container">
+                <img src="images/vv.png" alt="VoltVilla Logo" class="logo">
+                <a href="/" style="text-decoration: none; color: inherit;">
+                    <span class="logo-text">VoltVilla</span>
+                </a>
+            </div>
+            <nav>
+                <div class="icons">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-492.31q-57.75 0-98.87-41.12Q340-574.56 340-632.31q0-57.75 41.13-98.87 41.12-41.13 98.87-41.13 57.75 0 98.87 41.13Q620-690.06 620-632.31q0 57.75-41.13 98.88-41.12 41.12-98.87 41.12ZM180-187.69v-88.93q0-29.38 15.96-54.42 15.96-25.04 42.66-38.5 59.3-29.07 119.65-43.61 60.35-14.54 121.73-14.54t121.73 14.54q60.35 14.54 119.65 43.61 26.7 13.46 42.66 38.5Q780-306 780-276.62v88.93H180Zm60-60h480v-28.93q0-12.15-7.04-22.5-7.04-10.34-19.11-16.88-51.7-25.46-105.42-38.58Q534.7-367.69 480-367.69q-54.7 0-108.43 13.11-53.72 13.12-105.42 38.58-12.07 6.54-19.11 16.88-7.04 10.35-7.04 22.5v28.93Zm240-304.62q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 384.62Z"/></svg>
+                            <a href="/signin"></a></span>
+                    <span class="icon shopping-bag-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+                            <path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/>
+                        </svg>
+                    </span>
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
+                    </span>
+                      <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#000000s"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>                    </span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <div class="left-part">
+        </div>
+        <div class="right-part">
+        <br><br><br><br><br><br><br><br>
+             <div class="register-container">
+                <div class="register-text">Create your account</div>
+            </div>
+     {{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.nom) }}
+    {{ form_row(registrationForm.prenom) }}
+    {{ form_row(registrationForm.adresse) }}
+    {{ form_row(registrationForm.cp) }}
+    {{ form_row(registrationForm.plainPassword, { label: 'Password' }) }}
+    <div class="terms-checkbox">
+        <div style="display: inline-flex;">
+            {{ form_widget(registrationForm.agreeTerms) }}
+            <label for="{{ registrationForm.agreeTerms.vars.id }}">Agree </label>
+        </div>
+    </div>
+    <div class="register-container">
+        <div class="already-signed-in">Already have an account? <a href="/signin">Sign in</a></div>
+        <button type="submit" class="btn signin">Register</button>
+    </div>
+    {% for field in registrationForm %}
+                    {% if field.vars.errors|length > 0 %}
+                        <div class="error-message">{{ field.vars.errors|first.message }}</div>
+                    {% endif %}
+                {% endfor %}
+{{ form_end(registrationForm) }}
+
+
+
+        </div>
+    </div>
+    </div>
+        <footer class="footer">
+  <div class="container">
+    <div class="footer-left">
+      <h3>About Us</h3>
+      <p>Upgrade your home with our wide selection of high-quality appliances. From refrigerators to washing machines, we have everything you need to make your daily chores easier and more efficient.</p>
+      <ul>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+    <div class="footer-right">
+      <h3>Useful Links</h3>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Accessibility</a></li>
+        <br>
+        <li><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480.07-100q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100ZM440-162v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q20-22 36-47.5t26.5-53q10.5-27.5 16-56.5t5.5-59q0-98.29-54.31-179.53T600-776.77V-760q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z"/></svg></li> <!-- Instagram icon -->
+        <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M709.23-140H288.46v-480l265.39-263.84L587.69-850q6.23 6.23 10.35 16.5 4.11 10.27 4.11 19.35V-804l-42.46 184h268q28.54 0 50.42 21.89Q900-576.23 900-547.69v64.61q0 6.23-1.62 13.46-1.61 7.23-3.61 13.47L780.15-185.69q-8.61 19.23-28.84 32.46T709.23-140Zm-360.77-60h360.77q4.23 0 8.65-2.31 4.43-2.31 6.74-7.69L840-480v-67.69q0-5.39-3.46-8.85t-8.85-3.46H483.85L534-779.23 348.46-594.46V-200Zm0-394.46V-200v-394.46Zm-60-25.54v60H160v360h128.46v60H100v-480h188.46Z"/></svg></li> <!-- YouTube icon -->
+        <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M720.05-90q-45.82 0-77.93-32.08Q610-154.17 610-200q0-7.49 1.19-15.51 1.2-8.03 3.58-14.8L318.92-403.54q-15.84 15.77-36.07 24.65Q262.62-370 240-370q-45.83 0-77.92-32.07Q130-434.14 130-479.95q0-45.82 32.08-77.93Q194.17-590 240-590q22.62 0 42.85 8.89 20.23 8.88 36.07 24.65l295.85-173.23q-2.38-6.77-3.58-14.8Q610-752.51 610-760q0-45.83 32.07-77.92Q674.14-870 719.95-870q45.82 0 77.93 32.07Q830-805.86 830-760.05q0 45.82-32.08 77.93Q765.83-650 720-650q-22.62 0-42.85-8.89-20.23-8.88-36.07-24.65L345.23-510.31q2.38 6.77 3.58 14.77 1.19 8 1.19 15.46 0 7.46-1.19 15.54-1.2 8.08-3.58 14.85l295.85 173.23q15.84-15.77 36.07-24.65Q697.38-310 720-310q45.83 0 77.92 32.07Q830-245.86 830-200.05q0 45.82-32.07 77.93Q765.86-90 720.05-90ZM720-710q20.85 0 35.42-14.58Q770-739.15 770-760t-14.58-35.42Q740.85-810 720-810t-35.42 14.58Q670-780.85 670-760t14.58 35.42Q699.15-710 720-710ZM240-430q20.85 0 35.42-14.58Q290-459.15 290-480t-14.58-35.42Q260.85-530 240-530t-35.42 14.58Q190-500.85 190-480t14.58 35.42Q219.15-430 240-430Zm480 280q20.85 0 35.42-14.58Q770-179.15 770-200t-14.58-35.42Q740.85-250 720-250t-35.42 14.58Q670-220.85 670-200t14.58 35.42Q699.15-150 720-150Zm0-610ZM240-480Zm480 280Z"/></svg></a></li> <!-- LinkedIn icon -->
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p>Sahloul, Sousse, Tunisia</p>
+        <p>Email: voltvilla@gmail.com</p>
+        <p>Phone: +216 456 789</p>
+      </div>
+      <div class="newsletter">
+        <h3>Subscribe to Our Newsletter</h3>
+        <form>
+          <input type="email" placeholder="Enter your email">
+          <button class="explore-button" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    </footer>
+
+{% endblock %}
+

@@ -1,19 +1,152 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome to Your Website</title>
-</head>
-<body>
-    <header>
-        <h1>Welcome to Your Website</h1>
-    </header>
-    <main>
-        <section>
-            <h2>About Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo nibh sit amet est consectetur, sed vestibulum erat tristique.</p>
-        </section>
-        <!-- Additional content -->
-    </main>
-</body>
-</html>
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        {{ parent() }}
+
+        .headerr {
+            position: relative; /* Ensure the header remains in the document flow */
+        }
+
+        .first-section {
+            display: flex;
+        }
+
+        .left-section {
+            flex: 1;
+            position: sticky; /* Make the left section sticky */
+            top: 0; /* Stick to the top of the container */
+            height: 100vh; /* Set the height to the full viewport height */
+        }
+
+        .left-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the image covers the entire space */
+        }
+
+        .left-imagee {
+            width: 100%;
+            height: 80%;
+            object-fit: cover; /* Ensure the image covers the entire space */
+        }
+
+        .right-section {
+            flex: 1;
+            position: relative; /* Ensure proper positioning for children elements */
+            overflow: hidden; /* Hide overflow to prevent scrolling */
+        }
+
+        .right-video {
+            width: 100%; /* Ensure the video covers the entire width of the section */
+            height: 100%; /* Ensure the video covers the entire height of the section */
+            object-fit: cover; /* Ensure the video covers the entire space */
+        }
+
+        .advertising-section {
+            background-color: #ffffff; /* White background */
+            padding: 50px 0; /* Adjust padding as needed */
+        }
+
+        .advertising-section .container3 {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-family: 'Courier New', monospace; /* Use Courier New font */
+        }
+
+        .advertising-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .advertising-section p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .explore-sectionn {
+            background-color: #f9f9f9; /* Light gray background */
+            padding: 20px 0; /* Adjust padding as needed */
+            margin-bottom: 250px;
+        }
+
+        .explore-sectionn .container4 {
+            max-width: 1200px;
+            margin-top: 20px;
+            margin-left: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .left-sectionn {
+            flex: 1;
+            text-align: center;
+        }
+
+        .right-sectionn {
+            flex: 1;
+            text-align: center;
+        }
+
+        .explore-buttonn {
+            padding: 8px 30px;
+            background-color: #100d07; /* Adjust the button background color */
+            color: #ffffff; /* Button text color */
+            font-size: 18px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+        }
+
+        .explore-buttonn:hover {
+            background-color: #1c7694; /* Adjust the button background color on hover */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% include 'header/header.html.twig' %}
+
+    <section class="headerr">
+        <div class="container2" style="margin-top:105px;">
+            <div class="first-section">
+                <div class="left-section">
+                    <img src="images/im16.jpg" alt="Image" class="left-image">
+                    <!-- Content for the left section -->
+                </div>
+                <div class="right-section">
+                    <video src="images/1.mp4" autoplay muted loop controls class="right-video"></video>
+                </div>
+            </div>
+            <!-- Rest of the header content -->
+        </div>
+    </section>
+
+    <section class="advertising-section">
+        <div class="container3">
+            <h2>Why Choose VoltVilla for Home Appliances?</h2>
+            <p>When your appliance encounters an issue, we send a technician to your doorstep!</p>
+            <p>With VoltVilla, enjoy hassle-free shopping for all your home appliances.</p>
+            <!-- Add more advertising phrases as needed -->
+        </div>
+    </section>
+
+    <section class="explore-sectionn">
+        <div class="container4">
+            <div class="left-sectionn">
+                <a href="/register" class="explore-buttonn">Explore More</a>
+            </div>
+            <div class="right-sectionn">
+                <img src="images/im9.jpg" alt="Image" class="left-imagee">
+                <!-- Image goes here -->
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer/footer.html.twig' %}
+{% endblock %}

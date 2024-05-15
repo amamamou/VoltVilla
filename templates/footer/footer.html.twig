@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}Register{% endblock %}</title>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap">
+
+    {% block stylesheets %}
+        <style>
+        .footer {
+            margin-top:-250px;
+  background-color: #ffffff; /* Adjust background color as needed */
+  padding: 20px 0; /* Adjust padding as needed */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adding shadow to the bottom */
+}
+
+.footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-left,
+.footer-right {
+  flex: 1;
+}
+
+.footer-left ul,
+.footer-right ul {
+  list-style: none; /* Remove default list styles */
+  padding: 0; /* Remove default padding */
+}
+
+.footer-left li,
+.footer-right li {
+  margin-bottom: 10px; /* Adjust spacing between list items */
+}
+
+.footer-left a,
+.footer-right a {
+  color: #333; /* Link color */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s; /* Smooth transition for color change */
+  font-family: 'Courier New', monospace; /* Use Courier New font */
+}
+
+.footer-left a:hover,
+.footer-right a:hover {
+  color: #555; /* Change link color on hover */
+}
+
+/* Additional CSS to align social media icons horizontally */
+.footer-right ul li {
+  display: inline-block; /* Display list items inline */
+  margin-right: 10px; /* Adjust spacing between icons */
+}
+.explore-button {
+  padding: 10px 30px;
+  background-color: #100d07; /* Adjust the button background color */
+  color: #ffffff; /* Button text color */
+  font-size: 8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.explore-button:hover {
+  background-color: #1c7694; /* Adjust the button background color on hover */
+}
+
+h3
+{
+  font-family: 'Oswald', sans-serif; /* Using Oswald for the logo text */
+
+}
+
+        </style>
+    {% endblock %}
+</head>
+<body>
+    <footer class="footer">
+  <div class="container">
+    <div class="footer-left">
+      <h3>About Us</h3>
+      <p>Upgrade your home with our wide selection of high-quality appliances. From refrigerators to washing machines, we have everything you need to make your daily chores easier and more efficient.</p>
+      <ul>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+    <div class="footer-right">
+      <h3>Useful Links</h3>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Accessibility</a></li>
+        <br>
+        <li><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480.07-100q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100ZM440-162v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q20-22 36-47.5t26.5-53q10.5-27.5 16-56.5t5.5-59q0-98.29-54.31-179.53T600-776.77V-760q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z"/></svg></li> <!-- Instagram icon -->
+        <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M709.23-140H288.46v-480l265.39-263.84L587.69-850q6.23 6.23 10.35 16.5 4.11 10.27 4.11 19.35V-804l-42.46 184h268q28.54 0 50.42 21.89Q900-576.23 900-547.69v64.61q0 6.23-1.62 13.46-1.61 7.23-3.61 13.47L780.15-185.69q-8.61 19.23-28.84 32.46T709.23-140Zm-360.77-60h360.77q4.23 0 8.65-2.31 4.43-2.31 6.74-7.69L840-480v-67.69q0-5.39-3.46-8.85t-8.85-3.46H483.85L534-779.23 348.46-594.46V-200Zm0-394.46V-200v-394.46Zm-60-25.54v60H160v360h128.46v60H100v-480h188.46Z"/></svg></li> <!-- YouTube icon -->
+        <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M720.05-90q-45.82 0-77.93-32.08Q610-154.17 610-200q0-7.49 1.19-15.51 1.2-8.03 3.58-14.8L318.92-403.54q-15.84 15.77-36.07 24.65Q262.62-370 240-370q-45.83 0-77.92-32.07Q130-434.14 130-479.95q0-45.82 32.08-77.93Q194.17-590 240-590q22.62 0 42.85 8.89 20.23 8.88 36.07 24.65l295.85-173.23q-2.38-6.77-3.58-14.8Q610-752.51 610-760q0-45.83 32.07-77.92Q674.14-870 719.95-870q45.82 0 77.93 32.07Q830-805.86 830-760.05q0 45.82-32.08 77.93Q765.83-650 720-650q-22.62 0-42.85-8.89-20.23-8.88-36.07-24.65L345.23-510.31q2.38 6.77 3.58 14.77 1.19 8 1.19 15.46 0 7.46-1.19 15.54-1.2 8.08-3.58 14.85l295.85 173.23q15.84-15.77 36.07-24.65Q697.38-310 720-310q45.83 0 77.92 32.07Q830-245.86 830-200.05q0 45.82-32.07 77.93Q765.86-90 720.05-90ZM720-710q20.85 0 35.42-14.58Q770-739.15 770-760t-14.58-35.42Q740.85-810 720-810t-35.42 14.58Q670-780.85 670-760t14.58 35.42Q699.15-710 720-710ZM240-430q20.85 0 35.42-14.58Q290-459.15 290-480t-14.58-35.42Q260.85-530 240-530t-35.42 14.58Q190-500.85 190-480t14.58 35.42Q219.15-430 240-430Zm480 280q20.85 0 35.42-14.58Q770-179.15 770-200t-14.58-35.42Q740.85-250 720-250t-35.42 14.58Q670-220.85 670-200t14.58 35.42Q699.15-150 720-150Zm0-610ZM240-480Zm480 280Z"/></svg></a></li> <!-- LinkedIn icon -->
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p>Sahloul, Sousse, Tunisia</p>
+        <p>Email: voltvilla@gmail.com</p>
+        <p>Phone: +216 456 789</p>
+      </div>
+      <div class="newsletter">
+        <h3>Subscribe to Our Newsletter</h3>
+        <form>
+          <input type="email" placeholder="Enter your email">
+          <button class="explore-button" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    </footer>
+</body>
+</html>
