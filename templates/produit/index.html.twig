@@ -1,37 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
+{% block title %}Produit{% endblock %}
+
+{% block stylesheets %}
+    <style>
+     .cardd-containerr {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust the minimum and maximum width as needed */
+    gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 250px;
+    background-color: #f9f9f9;
+}
+
+
+        .cardd {
+            width: 350px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 4px;
+            height: 360px;
+        }
+
+        .cardd-body {
+            text-align: center;
+            font-family: 'Oswald', sans-serif; /* Using Oswald for the designation text */
+        }
+
+        .explore-buttoon {
+            padding: 10px 30px;
+            background-color: #100d07;
+            color: #ffffff;
+            font-size: 8px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+        }
+
+        .explore-buttoon:hover {
+            background-color: #1c7694;
+        }
+
+        .product-image {
+            width: 100%; /* Adjust the width of the image */
+            height: 300px; /* Adjust the height of the image */
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .category-container {
+            margin-top: 80px;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .category-image {
+            display: inline-block;
+            width: 200px; /* Adjust the width of each category image */
+            height: 200px; /* Adjust the height of each category image */
+            background-size: cover;
+            background-position: center;
+            animation: slide-animation 20s linear infinite;
+        }
+
+        @keyframes slide-animation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .choose-product {
+            text-align: center;
+            font-family: 'Courier New', monospace; /* Use Courier New font */
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+    {% include 'header/header.html.twig' %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Designation</th>
-                <th>Prix</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.Designation }}</td>
-                <td>{{ produit.Prix }}</td>
-                <td>
-                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+    <h1>Produit</h1>
+
+    <div class="category-container">
+        {% for i in 1..10 %}
+            <div class="category-image" style="background-image: url('{{ asset('images/cat' ~ i ~ '.png') }}')"></div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 
-    <a href="{{ path('app_produit_new') }}">Create new</a>
+    <div class="choose-product">
+    <p>Discover Your Next Favorite! Explore Our Exciting Products Now!</p>
+    </div>
+
+    <div class="cardd-containerr">
+        {% for produit in produits %}
+            <a href="{{ path('app_produit_show', {'id': produit.id}) }}" style="text-decoration: none; color: inherit;">
+                <div class="cardd">
+                    <div class="cardd-body">
+                        <img src="{{ asset('images/' ~ produit.id ~ '.jpg') }}" alt="Product Image" class="product-image">
+                        <p>{{ produit.Designation }}</p>
+                    </div>
+                </div>
+            </a>
+        {% else %}
+            <p>No records found</p>
+        {% endfor %}
+    </div>
+
+    {% include 'footer/footer.html.twig' %}
 {% endblock %}

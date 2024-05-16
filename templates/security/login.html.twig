@@ -2,30 +2,145 @@
 
 {% block title %}Log in!{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Your custom styles for the login form */
+         .container {
+            margin-top:120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height:500px;
+            font-family: 'Courier New', monospace; /* Use Courier New font */
+            position: relative; /* Ensure the header remains in the document flow */
+            margin-bottom:110px;
+        }
+
+        .lefft-parrt {
+            flex: 0 0 50%;
+            max-width: 50%;
+            background-image: url('/images/im18.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+        }
+        .rigght-parrt {
+            
+            width: 100%;
+            max-width: 100%;
+            padding: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rigght-parrt form {
+            background-color: #f9f9f9;
+            width: 100%;
+            padding: 100px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .rigght-parrt form .register-text {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .rigght-parrt form label {
+            font-weight: bold;
+        }
+
+        .rigght-parrt form input[type="email"],
+        .rigght-parrt form input[type="password"] {
+            width: calc(100% - 40px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .rigght-parrt form button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #100d07;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .rigght-parrt form button[type="submit"]:hover {
+            background-color: #1c7694;
+        }
+
+        .rigght-parrt form .error-message {
+            margin-top: 5px;
+            font-size: 12px;
+            color: red;
+        }
+
+        .rigght-parrt form .already-signed-in {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .rigght-parrt form .already-signed-in a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .rigght-parrt form .already-signed-in a:hover {
+            text-decoration: underline;
+        }
+        .logout-link {
+    color: red;
+}
+
+    </style>
+{% endblock %}
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+{% include 'header/header.html.twig' %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+{% if app.user %}
+    <div class="container">
+     <div class="alert alert-info">
+    You are already logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}" class="logout-link">Logout</a>
+</div>
+
+    </div>
+{% else %}
+    <div class="container">
+        <div class="lefft-parrt"></div>
+        <div class="rigght-parrt">
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <div class="register-text">Log in to your account</div>
+                <label for="inputEmail">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                <label for="inputPassword">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn signin" type="submit">
+                    Log in
+                </button>
+
+                <div class="already-signed-in">
+                    Don't have an account? <a href="/register">Register now</a>
+                </div>
+            </form>
         </div>
-    {% endif %}
+    </div>
+{% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+{% include 'footer/footer.html.twig' %}
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
 {% endblock %}
