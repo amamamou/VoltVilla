@@ -23,6 +23,8 @@ class ReclamationController extends AbstractController // Extend AbstractControl
         ]);
     }
 
+
+
     #[Route('/new', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -43,13 +45,16 @@ class ReclamationController extends AbstractController // Extend AbstractControl
             $entityManager->flush();
         $this->addFlash('success', 'Thank you for your reclamation. It has been delivered to us. We will send a technician to assist you as soon as possible.');
 
-            return $this->redirectToRoute('app_reclamation_index');
-        }
+        return $this->redirectToRoute('app_produit_index'); // Changed to redirect to 'app_produit_index'
+    }
 
         return $this->render('reclamation/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
+
+
     #[Route('/{id}', name: 'app_reclamation_show', methods: ['GET'])]
     public function show(Reclamation $reclamation): Response
     {
@@ -57,6 +62,9 @@ class ReclamationController extends AbstractController // Extend AbstractControl
             'reclamation' => $reclamation,
         ]);
     }
+
+
+
 
     #[Route('/{id}/edit', name: 'app_reclamation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reclamation $reclamation, EntityManagerInterface $entityManager): Response
@@ -67,7 +75,7 @@ class ReclamationController extends AbstractController // Extend AbstractControl
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_reclamation_index');
+            return $this->redirectToRoute('app_produit_index'); // Changed to redirect to 'app_produit_index'
         }
 
         return $this->render('reclamation/edit.html.twig', [
@@ -75,6 +83,10 @@ class ReclamationController extends AbstractController // Extend AbstractControl
             'form' => $form->createView(),
         ]);
     }
+
+
+
+
 
     #[Route('/{id}', name: 'app_reclamation_delete', methods: ['POST'])]
     public function delete(Request $request, Reclamation $reclamation, EntityManagerInterface $entityManager): Response
@@ -84,8 +96,11 @@ class ReclamationController extends AbstractController // Extend AbstractControl
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_reclamation_index');
+        return $this->redirectToRoute('app_produit_index'); // Changed to redirect to 'app_produit_index'
     }
+
+
+
     #[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
     public function index2(ReclamationRepository $reclamationRepository): Response
     {

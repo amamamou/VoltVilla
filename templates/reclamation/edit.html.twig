@@ -3,11 +3,103 @@
 {% block title %}Edit Reclamation{% endblock %}
 
 {% block body %}
-    <h1>Edit Reclamation</h1>
+    {{ include('header/header.html.twig') }}
 
-    {{ include('reclamation/_form.html.twig', {'button_label': 'Update'}) }}
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #f5f5f5; /* Light grey background */
+            color: #333; /* Dark text color */
+            margin-top: 120px;
+        }
 
-    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+        /* Reclamation Container */
+       .reclamation-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 300px;
+    text-align: center; /* Center the content */
+}
 
-    {{ include('reclamation/_delete_form.html.twig') }}
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Form Label */
+        .form-label {
+            font-weight: bold;
+        }
+
+        /* Form Control */
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+         .exploree-button {
+            padding: 8px 20px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+            border: none; /* Remove border */
+            display: inline-flex; /* Center the text */
+            align-items: center; /* Center the text */
+            justify-content: center; /* Center the text */
+        }
+
+        .exploree-button {
+    background-color: #1c7694; /* Green background */
+            color: #ffffff; /* White text */
+        }
+
+        .exploree-button:hover {
+    background-color: #1a5d7d; /* Darker green on hover */
+        }
+
+
+        /* Header */
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <div class="reclamation-container">
+        <h1>Edit Reclamation</h1>
+
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.Description, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.Description, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.Description) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.ReferencePd, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.ReferencePd, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.ReferencePd) }}
+            </div>
+            {% if form.CodeClt is defined %}
+                <div class="form-group">
+                    {{ form_label(form.CodeClt, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.CodeClt, {'attr': {'class': 'form-control', 'readonly': 'readonly'}}) }}
+                    {{ form_errors(form.CodeClt) }}
+                </div>
+            {% endif %}
+            <button type="submit" class="exploree-button">Save</button>
+        {{ form_end(form) }}
+    </div>
+
+    {{ include('footer/footer.html.twig') }}
 {% endblock %}

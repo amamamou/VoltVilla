@@ -5,11 +5,56 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
-        /* Custom CSS */
-        .explore-button {
+        /* General Styles */
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #f5f5f5; /* Light grey background */
+            color: #333; /* Dark text color */
+            margin-top: 120px;
+        }
+
+        /* Reclamation Container */
+        .reclamation-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #ffffff; /* White background */
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+            border-radius: 5px; /* Rounded corners */
+            margin-bottom: 300px;
+            text-align: center; /* Center the content */
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left; /* Align text to the left */
+        }
+         .formm-group {
+            margin-left:350px;
+            margin-bottom: 20px;
+            text-align: left; /* Align text to the left */
+        }
+
+        /* Form Label */
+        .form-label {
+            font-weight: bold;
+            display: block; /* Display labels as block elements */
+        }
+
+        /* Form Control */
+        .form-control {
             width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Action Button */
+        .exploree-button {
             padding: 15px 30px;
-            background-color: #100d07;
+            background-color: #1c7694;
             color: #ffffff;
             font-size: 16px;
             text-transform: uppercase;
@@ -20,56 +65,17 @@
             margin-top: 10px; /* Add some space between elements */
         }
 
-        .explore-button:hover {
-            background-color: #1c7694;
+        .exploree-button:hover {
+            background-color: #1a5d7d;
         }
 
-        .cardd {
-            background-color: #f9f9f9;
-            margin-top: 120px;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            margin-bottom: 280px;
-        }
-
-        .cardd-header {
-            background-color: #f9f9f9;
-        }
-
-        .cardd-title {
-            margin-bottom: 0;
-        }
-
-        .cardd-body {
-            padding: 20px;
-        }
-
-        .form-horizontal .form-group {
+        /* Header */
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            color: #333;
             margin-bottom: 20px;
         }
-
-        .control-label {
-            font-weight: bold;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-top: 6px;
-            margin-bottom: 16px;
-            resize: vertical;
-        }
-
-        .btn-primary {
-            width: 100%;
-        }
-        .cardd-title{
-            text-align:center;
-   font-family: 'Oswald', sans-serif; /* Using Oswald for the logo text */
-}    </style>
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -78,37 +84,24 @@
     </header>
 
     <main>
-        <div class="contaiiner">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <div class="cardd">
-                        <div class="cardd-header">
-                            <h1 class="cardd-title">New Reclamation</h1>
-                        </div>
-                        <div class="cardd-body">
-                            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-                                <div class="form-group">
-                                    {{ form_label(form.Description, 'Description', {'label_attr': {'class': 'control-label'}}) }}
-                                    <div class="col-sm-10">
-                                        {{ form_widget(form.Description, {'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    {{ form_label(form.ReferencePd, 'Refigerator Pd', {'label_attr': {'class': 'control-label'}}) }}
-                                    <div class="col-sm-10">
-                                        {{ form_widget(form.ReferencePd, {'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="explore-button">Submit</button>
-                                    </div>
-                                </div>
-                            {{ form_end(form) }}
-                        </div>
-                    </div>
+        <div class="reclamation-container">
+            <h1>New Reclamation</h1>
+
+            {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_label(form.Description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.Description, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.Description) }}
                 </div>
-            </div>
+                <div class="form-group">
+                    {{ form_label(form.ReferencePd, 'Produit à reclamer', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.ReferencePd, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.ReferencePd) }}
+                </div>
+                <div class="formm-group">
+                    <button type="submit" class="exploree-button">SEND</button>
+                </div>
+            {{ form_end(form) }}
         </div>
     </main>
 

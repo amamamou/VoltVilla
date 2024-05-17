@@ -8,7 +8,7 @@
             background-color: #f9f9f9;
             display: flex;
             margin-top: 50px;
-            margin-bottom: 200px;
+            margin-bottom: 180px;
         }
   
         .left-section {
@@ -24,11 +24,11 @@
         .left-section img {
             max-width: 100%;
             height: 550px;
+            margin-top: -100px;
         }
 
         .right-section {
-                        height: 700px;
-
+            height: 700px;
             padding-left: 20px; /* Add some padding for spacing */
         }
 
@@ -37,7 +37,7 @@
         }
 
         .table th {
-            color:red;
+            color: #c9302c;
             width: 30%; /* Set the width of table headers */
             text-align: center;
             font-family: 'Oswald', sans-serif; /* Apply Oswald font */
@@ -51,10 +51,9 @@
         }
 
         .action-links {
-              font-family: 'Courier New', monospace; /* Use Courier New font */
+            font-family: 'Courier New', monospace; /* Use Courier New font */
             text-align: center; /* Center the content */
-
-            font-size:20px;
+            font-size: 20px;
             margin-top: 100px;
         }
 
@@ -71,8 +70,8 @@
             height: 24px;
             width: 24px;
         }
-        
-        .explore-buttoon {
+
+        .exploree-button {
             padding: 15px 30px;
             background-color: #100d07;
             color: #ffffff;
@@ -85,10 +84,11 @@
             margin-top: 10px; /* Add some space between elements */
         }
 
-        .explore-buttoon:hover {
+        .exploree-button:hover {
             background-color: #1c7694;
         }
-.category-container {
+
+        .category-container {
             margin-top: 80px;
             width: 100%;
             overflow: hidden;
@@ -108,6 +108,7 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
         }
+
         .alert-container {
             width: 100%;
             text-align: center;
@@ -128,24 +129,23 @@
     {% include 'header/header.html.twig' %}
     <h1>Produit</h1>
 
-
     <div class="product-details-container">
         <div class="left-section">
             <img src="{{ asset('images/' ~ produit.id ~ '.jpg') }}" alt="Product Image">
         </div>
         <div class="right-section">
-            <h2 class="table" style=" text-align: center;font-family: 'Oswald', sans-serif;font-size: 60px;margin-bottom: 50px;">{{ produit.Designation }}</h2>
+            <h2 class="table" style="text-align: center;font-family: 'Oswald', sans-serif;font-size: 60px;margin-bottom: 50px;">{{ produit.Designation }}</h2>
             <table class="table">
                 <tbody>
                     <tr>
                         <th>Price:</th>
-                        <td>{{ produit.Prix }}DT </td>
+                        <td>{{ produit.Prix }}DT</td>
                     </tr>
                 </tbody>
             </table>
             <div class="action-links">
                 <p>If you encounter any issues with this product, we're here to help! Our team can provide assistance and even send a technician to resolve any problems you may have. Feel free to file a complaint and let us know how we can assist you.</p>
-                <a href="{{ path('app_reclamation_new', {'productId': produit.id}) }}" class="explore-button">File a Complaint</a>
+                <a href="{{ path('app_reclamation_new', {'productId': produit.id}) }}" class="exploree-button">File a Complaint</a>
             </div>
             <a href="{{ path('app_produit_index') }}" class="back-to-list-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -154,6 +154,7 @@
             </a>
         </div>
     </div>
+
     {# Alert Message #}
     {% for flash_message in app.session.flashBag.get('success') %}
         <div class="alert-container">

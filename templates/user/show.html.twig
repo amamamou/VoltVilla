@@ -14,13 +14,16 @@
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Oswald', sans-serif; /* Using Oswald for titles */
         }
-        .explore-button {
+        .essmou {
+            margin-right: 170px;
+        }
+        .explorre-button {
             align-items: center;
             width: 150px; /* Increased width */
             padding: 15px 30px;
-            background-color: #100d07;
+            background-color: #1c7694;
             color: #ffffff;
-            font-size: 16px;
+            font-size: 12px;
             text-align: center;
             text-transform: uppercase;
             text-decoration: none;
@@ -31,34 +34,12 @@
             margin-bottom: 20px; /* Increased margin bottom */
         }
 
-        .explore-button:hover {
-            background-color: #1c7694;
+        .explorre-button:hover {
+            background-color: #1a5d7d;
         }
         .containert {
-            margin-bottom: 300px;
+            margin-bottom: 2px;
             text-align: center; /* Centering content */
-        }
-        .card {
-            display: inline-block; /* Display cards inline */
-            vertical-align: top; /* Align cards to the top */
-            width: calc(50% - 40px); /* Adjusted width for two cards in a row */
-            margin: 0 20px 20px; /* Added margin */
-            border: none;
-            border-radius: 2px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            padding: 20px;
-        }
-           .cardd {
-            display: inline-block; /* Display cards inline */
-            vertical-align: top; /* Align cards to the top */
-            width: 80%; /* Adjusted width for two cards in a row */
-            margin: 0 20px 20px; /* Added margin */
-            border: none;
-            border-radius: 2px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            padding: 20px;
         }
         .profile-header {
             background-color: #100d07;
@@ -71,9 +52,11 @@
         }
         .profile-details {
             padding: 0 20px;
+            text-align: center; /* Centering content */
         }
         .profile-details table {
-            width: 100%;
+            margin: 0 auto; /* Centering the table */
+            width: 70%; /* Adjusted width */
             border-collapse: collapse;
         }
         .profile-details th, .profile-details td {
@@ -89,13 +72,11 @@
         }
         .profile-details td {
             color: #6c757d;
-        }
-        .profile-details a {
-            margin-top: 20px;
-            display: inline-block;
+            text-align: left; /* Aligning text to the left */
         }
         .reclamation-list {
-            margin-top: 20px;
+            margin-bottom: 250px;
+            margin-top: 50px; /* Increased margin top */
             display: flex; /* Use flexbox */
             flex-wrap: wrap; /* Wrap items */
             justify-content: space-between; /* Distribute items evenly */
@@ -110,6 +91,10 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             cursor: pointer; /* Add pointer cursor */
             position: relative; /* Add relative position */
+            text-decoration: none; /* Remove default underline */
+            color: inherit; /* Inherit color from parent */
+
+
         }
 
         .reclamation h3 {
@@ -132,87 +117,87 @@
             border: 5px solid #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            float: left; /* Float the profile picture to the left */
+            margin-right: 20px; /* Add margin to the right */
+        }
+        .separator {
+            margin: 50px auto; /* Centering the separator */
+            width: 80%; /* Adjusted width */
+            border-bottom: 1px solid #ccc; /* Separator line */
+        }
+        .reclamation-header {
+            text-align: center; /* Centering the reclamation header */
         }
         .reclamation-link {
-            display: block;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            cursor: pointer; /* Add pointer cursor */
-        }
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    cursor: default; /* Change cursor to default */
+    text-decoration: none; /* Remove default underline */
+}
+.logout-icon{
+    margin-left:1000px;
+}
     </style>
 {% endblock %}
-
 {% block body %}
     {% include 'header/header.html.twig' %}
 
     <div class="containert">
-        <div class="card">
-            <div class="profile-header">
-            </div>
-            <div class="profile-details">
-                <div class="text-center">
-                    <img src="{{ asset('images/user' ~ user.id ~ '.png') }}" alt="Profile Picture" class="profile-picture">
-                </div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>ID</th>
-                            <td>{{ user.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td>{{ user.email }}</td>
-                        </tr>
-                        <tr>
-                            <th>Roles</th>
-                            <td>{{ user.roles ? user.roles|join(', ') : 'None' }}</td>
-                        </tr>
-                        <tr>
-                            <th>Name</th>
-                            <td>{{ user.nom }}</td>
-                        </tr>
-                        <tr>
-                            <th>Surname</th>
-                            <td>{{ user.prenom }}</td>
-                        </tr>
-                        <tr>
-                            <th>Address</th>
-                            <td>{{ user.adresse }}</td>
-                        </tr>
-                        <tr>
-                            <th>Postal Code</th>
-                            <td>{{ user.cp }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="explore-button">Edit Profile</a>
-            </div>
-        </div>
-
-        <div class="cardd">
-            <div class="profile-header">
-                <h2>Reclamations</h2>
-            </div>
-            <div class="reclamation-list">
-                {% if user.reclamations is not empty %}
-                    {% for reclamation in user.reclamations %}
-                        <div class="reclamation">
-                            <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}" class="reclamation-link"></a> <!-- Invisible link -->
-                            <h3>Product ID: {{ reclamation.getReferencePd().getId() }}</h3>
-                            <p><strong>Date:</strong> {{ reclamation.getDateReclamation()|date('Y-m-d H:i:s') }}</p>
-                            <p><strong>Description:</strong> {{ reclamation.getDescription() }}</p>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <p>No reclamations found.</p>
-                {% endif %}
-            </div>
+        <img src="{{ asset('images/user' ~ user.id ~ '.png') }}" alt="Profile Picture" class="profile-picture">
+        <div class="profile-details">
+            <h1 class="essmou">{{ user.nom }} {{ user.prenom }}</h1>
+            <!-- Add logout icon here -->
+            <a href="{{ path('app_logout') }}" title="Logout" class="logout-icon">
+                <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+                        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/>
+                    </svg>
+                </span>
+            </a>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{ user.adresse }}</td>
+                    </tr>
+                    <tr>
+                        <th>Postal Code</th>
+                        <td>{{ user.cp }}</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="explorre-button">Edit Profile</a>
         </div>
     </div>
-    {% include 'footer/footer.html.twig' %}
+    <div class="separator"></div> <!-- Separator line -->
+    <div class="reclamation-header">
+    </div>
+   <div class="reclamation-list">
+    {% if user.reclamations is not empty %}
+        {% for reclamation in user.reclamations %}
+            {% set productName = reclamation.referencePd.designation %}
+            <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}" class="reclamation">
+                <div>
+                    <h3>Product Name: {{ productName }}</h3>
+                    <p><strong>Date:</strong> {{ reclamation.dateReclamation|date('Y-m-d H:i:s') }}</p>
+                    <p><strong>Description:</strong> {{ reclamation.description }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <p>No reclamations found.</p>
+    {% endif %}
+</div>
 
+    {% include 'footer/footer.html.twig' %}
 {% endblock %}
