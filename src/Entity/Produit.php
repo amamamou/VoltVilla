@@ -24,9 +24,13 @@ class Produit
     #[ORM\ManyToMany(targetEntity: Intervention::class, mappedBy: 'ReferencePd')]
     private Collection $interventions;
 
+    #[ORM\OneToMany(mappedBy: 'ReferencePd', targetEntity: Reclamation::class)]
+    private Collection $reclamations;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
+        $this->reclamations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,5 +87,39 @@ class Produit
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Reclamation>
+     */
+    public function getReclamations(): Collection
+    {
+        return $this->reclamations;
+    }
+
+    public function addReclamation(Reclamation $reclamation): static
+    {
+        if (!$this->reclamations->contains($reclamation)) {
+            $this->reclamations->add($reclamation);
+            $reclamation->setReferencePd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReclamation(Reclamation $reclamation): static
+    {
+        if ($this->reclamations->removeElement($reclamation)) {
+            // set the owning side to null (unless already changed)
+            if ($reclamation->getReferencePd() === $this) {
+                $reclamation->setReferencePd(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->getDesignation(); // Assuming "name" is a property of Produit
     }
 }

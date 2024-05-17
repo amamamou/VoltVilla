@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Reclamation{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Custom CSS */
+        .explore-button {
+            width: 100%;
+            padding: 15px 30px;
+            background-color: #100d07;
+            color: #ffffff;
+            font-size: 16px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+            display: inline-block; /* Ensure button is inline */
+            margin-top: 10px; /* Add some space between elements */
+        }
+
+        .explore-button:hover {
+            background-color: #1c7694;
+        }
+
+        .cardd {
+            background-color: #f9f9f9;
+            margin-top: 120px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 280px;
+        }
+
+        .cardd-header {
+            background-color: #f9f9f9;
+        }
+
+        .cardd-title {
+            margin-bottom: 0;
+        }
+
+        .cardd-body {
+            padding: 20px;
+        }
+
+        .form-horizontal .form-group {
+            margin-bottom: 20px;
+        }
+
+        .control-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+        .cardd-title{
+            text-align:center;
+   font-family: 'Oswald', sans-serif; /* Using Oswald for the logo text */
+}    </style>
+{% endblock %}
+
+{% block body %}
+    <header>
+        {% include 'header/header.html.twig' %}
+    </header>
+
+    <main>
+        <div class="contaiiner">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="cardd">
+                        <div class="cardd-header">
+                            <h1 class="cardd-title">New Reclamation</h1>
+                        </div>
+                        <div class="cardd-body">
+                            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                                <div class="form-group">
+                                    {{ form_label(form.Description, 'Description', {'label_attr': {'class': 'control-label'}}) }}
+                                    <div class="col-sm-10">
+                                        {{ form_widget(form.Description, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(form.ReferencePd, 'Refigerator Pd', {'label_attr': {'class': 'control-label'}}) }}
+                                    <div class="col-sm-10">
+                                        {{ form_widget(form.ReferencePd, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="explore-button">Submit</button>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        {% include 'footer/footer.html.twig' %}
+    </footer>
+{% endblock %}

@@ -16,11 +16,12 @@
 
         .cardd {
             width: 350px;
-            background-color: #f9f9f9;
+            background-color: #f4f1f1;
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 4px;
             height: 360px;
+            position: relative; /* Add position relative to the card */
         }
 
         .cardd-body {
@@ -77,6 +78,17 @@
             margin-top: 30px;
             margin-bottom: 30px;
         }
+
+        /* Add styles for the price rectangle */
+        .price-rectangle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border-radius: 2px;
+        }
     </style>
 {% endblock %}
 
@@ -99,6 +111,7 @@
         {% for produit in produits %}
             <a href="{{ path('app_produit_show', {'id': produit.id}) }}" style="text-decoration: none; color: inherit;">
                 <div class="cardd">
+                    <div class="price-rectangle">{{ produit.Prix }}DT</div>
                     <div class="cardd-body">
                         <img src="{{ asset('images/' ~ produit.id ~ '.jpg') }}" alt="Product Image" class="product-image">
                         <p>{{ produit.Designation }}</p>

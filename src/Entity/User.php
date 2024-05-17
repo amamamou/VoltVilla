@@ -49,9 +49,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $cp = null;
 
+    #[ORM\OneToMany(mappedBy: 'CodeClt', targetEntity: Reclamation::class)]
+    private Collection $reclamations;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
+        $this->reclamations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,5 +204,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->cp = $cp;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Reclamation>
+     */
+    public function getReclamations(): Collection
+    {
+        return $this->reclamations;
+    }
+
+    public function addReclamation(Reclamation $reclamation): static
+    {
+        if (!$this->reclamations->contains($reclamation)) {
+            $this->reclamations->add($reclamation);
+            $reclamation->setCodeClt($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReclamation(Reclamation $reclamation): static
+    {
+        if ($this->reclamations->removeElement($reclamation)) {
+            // set the owning side to null (unless already changed)
+            if ($reclamation->getCodeClt() === $this) {
+                $reclamation->setCodeClt(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->getEmail(); // Or any other field that represents the user
     }
 }

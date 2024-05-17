@@ -1,50 +1,218 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}User Profile{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        /* Custom styles for user profile */
+        body {
+            margin-top: 120px;
+            font-family: 'Courier New', monospace; /* Use Courier New font */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif; /* Using Oswald for titles */
+        }
+        .explore-button {
+            align-items: center;
+            width: 150px; /* Increased width */
+            padding: 15px 30px;
+            background-color: #100d07;
+            color: #ffffff;
+            font-size: 16px;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+            display: inline-block; /* Ensure button is inline */
+            margin-top: 20px; /* Increased margin top */
+            margin-bottom: 20px; /* Increased margin bottom */
+        }
+
+        .explore-button:hover {
+            background-color: #1c7694;
+        }
+        .containert {
+            margin-bottom: 300px;
+            text-align: center; /* Centering content */
+        }
+        .card {
+            display: inline-block; /* Display cards inline */
+            vertical-align: top; /* Align cards to the top */
+            width: calc(50% - 40px); /* Adjusted width for two cards in a row */
+            margin: 0 20px 20px; /* Added margin */
+            border: none;
+            border-radius: 2px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            padding: 20px;
+        }
+           .cardd {
+            display: inline-block; /* Display cards inline */
+            vertical-align: top; /* Align cards to the top */
+            width: 80%; /* Adjusted width for two cards in a row */
+            margin: 0 20px 20px; /* Added margin */
+            border: none;
+            border-radius: 2px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            padding: 20px;
+        }
+        .profile-header {
+            background-color: #100d07;
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-details {
+            padding: 0 20px;
+        }
+        .profile-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .profile-details th, .profile-details td {
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+            font-family: 'Courier New', monospace; /* Use Courier New font */
+        }
+        .profile-details th {
+            text-align: left;
+            color: #343a40;
+            font-weight: bold;
+            width: 30%;
+        }
+        .profile-details td {
+            color: #6c757d;
+        }
+        .profile-details a {
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .reclamation-list {
+            margin-top: 20px;
+            display: flex; /* Use flexbox */
+            flex-wrap: wrap; /* Wrap items */
+            justify-content: space-between; /* Distribute items evenly */
+        }
+
+        .reclamation {
+            width: calc(25% - 20px); /* Adjusted width for four items in a row */
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer; /* Add pointer cursor */
+            position: relative; /* Add relative position */
+        }
+
+        .reclamation h3 {
+            font-family: 'Oswald', sans-serif; /* Using Oswald for titles */
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .reclamation p {
+            font-family: 'Courier New', monospace; /* Use Courier New font */
+            font-size: 16px;
+            color: #343a40;
+            line-height: 1.5;
+        }
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .reclamation-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            cursor: pointer; /* Add pointer cursor */
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    {% include 'header/header.html.twig' %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ user.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ user.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ user.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Cp</th>
-                <td>{{ user.cp }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="containert">
+        <div class="card">
+            <div class="profile-header">
+            </div>
+            <div class="profile-details">
+                <div class="text-center">
+                    <img src="{{ asset('images/user' ~ user.id ~ '.png') }}" alt="Profile Picture" class="profile-picture">
+                </div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>ID</th>
+                            <td>{{ user.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Roles</th>
+                            <td>{{ user.roles ? user.roles|join(', ') : 'None' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ user.nom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Surname</th>
+                            <td>{{ user.prenom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ user.adresse }}</td>
+                        </tr>
+                        <tr>
+                            <th>Postal Code</th>
+                            <td>{{ user.cp }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="explore-button">Edit Profile</a>
+            </div>
+        </div>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+        <div class="cardd">
+            <div class="profile-header">
+                <h2>Reclamations</h2>
+            </div>
+            <div class="reclamation-list">
+                {% if user.reclamations is not empty %}
+                    {% for reclamation in user.reclamations %}
+                        <div class="reclamation">
+                            <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}" class="reclamation-link"></a> <!-- Invisible link -->
+                            <h3>Product ID: {{ reclamation.getReferencePd().getId() }}</h3>
+                            <p><strong>Date:</strong> {{ reclamation.getDateReclamation()|date('Y-m-d H:i:s') }}</p>
+                            <p><strong>Description:</strong> {{ reclamation.getDescription() }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No reclamations found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% include 'footer/footer.html.twig' %}
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+
+{# Add hidden field for client code (CodeClt) #}
+<input type="hidden" name="reclamation[CodeClt]" value="{{ reclamation.CodeClt }}">
+
+{# Add hidden field for product reference (ReferencePd) #}
+<input type="hidden" name="reclamation[ReferencePd]" value="{{ reclamation.ReferencePd }}">
+
+{# Add field for date of reclamation (DateReclamation) #}
+<div class="form-group">
+    {{ form_label(form.DateReclamation) }}
+    {{ form_widget(form.DateReclamation, {'attr': {'class': 'form-control'}}) }}
+</div>
+
+{# Add field for description #}
+<div class="form-group">
+    {{ form_label(form.Description) }}
+    {{ form_widget(form.Description, {'attr': {'class': 'form-control'}}) }}
+</div>
+
+{# Add submit button #}
+<button type="submit" class="btn btn-primary">Submit</button>
+
+{{ form_end(form) }}

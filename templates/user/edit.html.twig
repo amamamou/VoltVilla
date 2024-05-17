@@ -1,13 +1,92 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        /* Define your styles here */
+        body {
+            font-family: 'Courier New', monospace; /* Use Courier New font for body */
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* White background */
+            color: #100d07; /* Dark text color */
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-bottom:240px;
+        }
+        h1, h2 {
+            font-family: 'Oswald', sans-serif; /* Using Oswald for titles */
+            color: #1c7694; /* Header color */
+            text-align: center;
+        }
+        form {
+            background-color: #ffffff; /* White background for form */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+       .explore-button {
+            align-items: center;
+            width: 150px; /* Increased width */
+            padding: 15px 30px;
+            background-color: #100d07;
+            color: #ffffff;
+            font-size: 16px;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+            display: inline-block; /* Ensure button is inline */
+            margin-top: 20px; /* Increased margin top */
+            margin-bottom: 20px; /* Increased margin bottom */
+        }
 
-{% block title %}Edit User{% endblock %}
-
-{% block body %}
-    <h1>Edit User</h1>
-
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    {{ include('user/_delete_form.html.twig') }}
-{% endblock %}
+        .explore-button:hover {
+            background-color: #1c7694;
+        }
+        .button-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {% include 'header/header.html.twig' %} <!-- Include header -->
+    <div class="container">
+        <h1>User Profile</h1>
+        <h2>Edit Profile</h2>
+       <form action="{{ path('app_user_edit', {'id': user.id}) }}" method="POST">
+            {{ form_start(form) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.password) }}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.prenom) }}
+            {{ form_row(form.adresse) }}
+            {{ form_row(form.cp) }}
+   <div class="button-container"> <!-- Button container -->
+                <input type="submit" value="Save Changes" class="explore-button">
+            </div>
+                        {{ form_end(form) }}
+        </form>
+    </div>
+    {% include 'footer/footer.html.twig' %} <!-- Include footer -->
+</body>
+</html>

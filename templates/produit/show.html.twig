@@ -7,8 +7,8 @@
         .product-details-container {
             background-color: #f9f9f9;
             display: flex;
-            margin-top: 80px;
-            margin-bottom: 260px;
+            margin-top: 50px;
+            margin-bottom: 200px;
         }
   
         .left-section {
@@ -23,10 +23,12 @@
 
         .left-section img {
             max-width: 100%;
-            height: 700px;
+            height: 550px;
         }
 
         .right-section {
+                        height: 700px;
+
             padding-left: 20px; /* Add some padding for spacing */
         }
 
@@ -35,6 +37,7 @@
         }
 
         .table th {
+            color:red;
             width: 30%; /* Set the width of table headers */
             text-align: center;
             font-family: 'Oswald', sans-serif; /* Apply Oswald font */
@@ -59,7 +62,7 @@
             margin-top: 20px;
             display: inline-block;
             padding: 5px;
-            background-color: #e8eaed;
+            background-color: #ccc;
             border-radius: 50%;
         }
 
@@ -73,7 +76,7 @@
             padding: 15px 30px;
             background-color: #100d07;
             color: #ffffff;
-            font-size: 8px;
+            font-size: 10px;
             text-transform: uppercase;
             text-decoration: none;
             border-radius: 2px;
@@ -85,13 +88,46 @@
         .explore-buttoon:hover {
             background-color: #1c7694;
         }
+.category-container {
+            margin-top: 80px;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
 
+        .category-image {
+            display: inline-block;
+            width: 200px; /* Adjust the width of each category image */
+            height: 200px; /* Adjust the height of each category image */
+            background-size: cover;
+            background-position: center;
+            animation: slide-animation 20s linear infinite;
+        }
+
+        @keyframes slide-animation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        .alert-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .alert {
+            padding: 15px;
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+            border-radius: 4px;
+        }
     </style>
 {% endblock %}
 
 {% block body %}
     {% include 'header/header.html.twig' %}
     <h1>Produit</h1>
+
 
     <div class="product-details-container">
         <div class="left-section">
@@ -109,7 +145,7 @@
             </table>
             <div class="action-links">
                 <p>If you encounter any issues with this product, we're here to help! Our team can provide assistance and even send a technician to resolve any problems you may have. Feel free to file a complaint and let us know how we can assist you.</p>
-                <a href="#" class="explore-buttoon">File a Complaint</a>
+                <a href="{{ path('app_reclamation_new', {'productId': produit.id}) }}" class="explore-button">File a Complaint</a>
             </div>
             <a href="{{ path('app_produit_index') }}" class="back-to-list-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -118,5 +154,14 @@
             </a>
         </div>
     </div>
+    {# Alert Message #}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert-container">
+            <div class="alert" role="alert">
+                {{ flash_message }}
+            </div>
+        </div>
+    {% endfor %}
+
     {% include 'footer/footer.html.twig' %}
 {% endblock %}
