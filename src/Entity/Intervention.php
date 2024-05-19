@@ -125,15 +125,19 @@ class Intervention
     {
         // unset the owning side of the relation if necessary
         if ($reclamation === null && $this->reclamation !== null) {
-            $this->reclamation->setInterventionId(null);
+            $this->reclamation->setIntervention(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($reclamation !== null && $reclamation->getInterventionId() !== $this) {
-            $reclamation->setInterventionId($this);
+        if ($reclamation !== null && $reclamation->getIntervention() !== $this) {
+            $reclamation->setIntervention($this);
         }
 
         $this->reclamation = $reclamation;
 
         return $this;
-    }}
+    }
+
+
+    
+}

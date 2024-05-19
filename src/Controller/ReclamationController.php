@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Technecien;
+use App\Entity\Intervention;
 use App\Entity\Produit;
 use App\Entity\Reclamation;
 use App\Form\ReclamationType;
@@ -24,37 +26,67 @@ class ReclamationController extends AbstractController // Extend AbstractControl
     }
 
     
+    #[Route('/new/{productId}', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
+public function new(Request $request, EntityManagerInterface $entityManager, $productId): Response
+{
+    $reclamation = new Reclamation();
     
-
-    #[Route('/new', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $reclamation = new Reclamation();
-
-        // Set the current authenticated user as the owner of the reclamation
-        $user = $this->getUser();
-        $reclamation->setCodeClt($user);
-
-        // Set the current date and time as the creation date and time of the reclamation
-        $reclamation->setDateReclamation(new \DateTime());
-
-        $form = $this->createForm(ReclamationType::class, $reclamation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+    // Set the current authenticated user as the owner of the reclamation
+    $user = $this->getUser();
+    $reclamation->setCodeClt($user);
+    
+    // Set the current date and time as the creation date and time of the reclamation
+    $reclamation->setDateReclamation(new \DateTime());
+    
+    $form = $this->createForm(ReclamationType::class, $reclamation);
+    $form->handleRequest($request);
+    
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Check if there are available technicians
+        $availableTechnicians = $entityManager->getRepository(Technecien::class)->findAvailableTechnicians();
+    
+        if ($availableTechnicians) {
+            // Persist the reclamation
             $entityManager->persist($reclamation);
             $entityManager->flush();
-        $this->addFlash('success', 'Thank you for your reclamation. It has been delivered to us. We will send a technician to assist you as soon as possible.');
-
-        return $this->redirectToRoute('app_produit_index'); // Changed to redirect to 'app_produit_index'
+    
+            // Create interventions for available technicians
+            foreach ($availableTechnicians as $technician) {
+                $intervention = new Intervention();
+                $intervention->setDateInterv(new \DateTime());
+                $intervention->setStatus(0); // Pending status
+                $intervention->setReclamation($reclamation);
+                $intervention->setCodeTech($technician); // Corrected line
+    
+                // Update the technician availability
+                $technician->setAvailable(0);
+    
+                $entityManager->persist($intervention);
+                $entityManager->persist($technician);
+            }
+    
+            $entityManager->flush();
+    
+            $this->addFlash('success', 'Thank you for your reclamation. It has been delivered to us. We will send a technician to assist you as soon as possible.');
+    
+            return $this->redirectToRoute('app_produit_index'); // Redirect to 'app_produit_index'
+        } else {
+            // If no available technicians, mark the reclamation as pending
+            $entityManager->persist($reclamation);
+            $entityManager->flush();
+    
+            $this->addFlash('success', 'Thank you for your reclamation. It has been marked as pending until a technician is available.');
+    
+            return $this->redirectToRoute('app_produit_index'); // Redirect to 'app_produit_index'
+        }
     }
+    
+    return $this->render('reclamation/new.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
 
-        return $this->render('reclamation/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-
+    
 
     #[Route('/{id}', name: 'app_reclamation_show', methods: ['GET'])]
     public function show(Reclamation $reclamation): Response
@@ -122,6 +154,13 @@ public function intervention(Request $request, Reclamation $reclamation, EntityM
         if ($interventionStatus === 'complete') {
             // Update the intervention status to complete (1) in the database
             $reclamation->getIntervention()->setStatus(1);
+            $entityManager->persist($reclamation->getIntervention()); // Persist the updated intervention
+            
+            // Set the technician's availability to 1 (available)
+            $technician = $reclamation->getIntervention()->getCodeTech();
+            $technician->setAvailable(1);
+            $entityManager->persist($technician); // Persist the updated technician
+            
             $entityManager->flush();
         }
     } else {
@@ -132,4 +171,6 @@ public function intervention(Request $request, Reclamation $reclamation, EntityM
     // Redirect back to the reclamation show page
     return $this->redirectToRoute('app_reclamation_show', ['id' => $reclamation->getId()]);
 }
+
+
 }

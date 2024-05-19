@@ -45,4 +45,14 @@ class TechnecienRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+  // Define the method to find available technicians
+  public function findAvailableTechnicians()
+  {
+      return $this->createQueryBuilder('t')
+          ->where('t.available = :available')
+          ->setParameter('available', true) // Assuming `true` represents available
+          ->getQuery()
+          ->getResult();
+  }
 }
