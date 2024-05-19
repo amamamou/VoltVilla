@@ -1,21 +1,27 @@
 <?php
 // src/Controller/HomeController.php
 
+// src/Controller/HomeController.php
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\TechnecienRepository; // Ensure you have this repository
 
 class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
+    public function index(TechnecienRepository $technecienRepository): Response
     {
-        // Here you can render the homepage template or perform any other logic
-        return $this->render('home/index.html.twig');
+        $techneciens = $technecienRepository->findAll();
+
+        return $this->render('home/index.html.twig', [
+            'techneciens' => $techneciens,
+        ]);
     }
 
     /**

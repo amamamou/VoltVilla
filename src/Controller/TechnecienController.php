@@ -78,4 +78,14 @@ class TechnecienController extends AbstractController
 
         return $this->redirectToRoute('app_technecien_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    #[Route('/technecien/{id}', name: 'app_technecien_showme', methods: ['GET'])]
+public function showTech(Technecien $technecien): Response
+{
+    return $this->render('home/tech_profile.html.twig', [
+        'technecien' => $technecien,
+    ]);
+}
+
 }

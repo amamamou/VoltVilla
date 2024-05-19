@@ -7,7 +7,7 @@
         {{ parent() }}
 
         .headerr {
-            position: relative; /* Ensure the header remains in the document flow */
+            position: relative;
         }
 
         .first-section {
@@ -16,45 +16,45 @@
 
         .left-section {
             flex: 1;
-            position: sticky; /* Make the left section sticky */
-            top: 0; /* Stick to the top of the container */
-            height: 100vh; /* Set the height to the full viewport height */
+            position: sticky;
+            top: 0;
+            height: 100vh;
         }
 
         .left-image {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensure the image covers the entire space */
+            object-fit: cover;
         }
 
         .left-imagee {
             width: 100%;
             height: 80%;
-            object-fit: cover; /* Ensure the image covers the entire space */
+            object-fit: cover;
         }
 
         .right-section {
             flex: 1;
-            position: relative; /* Ensure proper positioning for children elements */
-            overflow: hidden; /* Hide overflow to prevent scrolling */
+            position: relative;
+            overflow: hidden;
         }
 
         .right-video {
-            width: 100%; /* Ensure the video covers the entire width of the section */
-            height: 100%; /* Ensure the video covers the entire height of the section */
-            object-fit: cover; /* Ensure the video covers the entire space */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .advertising-section {
-            background-color: #ffffff; /* White background */
-            padding: 50px 0; /* Adjust padding as needed */
+            background-color: #ffffff;
+            padding: 50px 0;
         }
 
         .advertising-section .container3 {
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
-            font-family: 'Courier New', monospace; /* Use Courier New font */
+            font-family: 'Courier New', monospace;
         }
 
         .advertising-section h2 {
@@ -68,9 +68,9 @@
         }
 
         .explore-sectionn {
-            background-color: #f9f9f9; /* Light gray background */
-            padding: 20px 0; /* Adjust padding as needed */
-            margin-bottom: 250px;
+            background-color: #f9f9f9;
+            padding: 20px 0;
+            margin-bottom: 10px;
         }
 
         .explore-sectionn .container4 {
@@ -93,11 +93,10 @@
         }
 
         .explore-buttonn {
-                font-family: 'Oswald', sans-serif;
-
+            font-family: 'Oswald', sans-serif;
             padding: 8px 30px;
-            background-color: #100d07; /* Adjust the button background color */
-            color: #ffffff; /* Button text color */
+            background-color: #100d07;
+            color: #ffffff;
             font-size: 18px;
             text-transform: uppercase;
             text-decoration: none;
@@ -106,9 +105,67 @@
         }
 
         .explore-buttonn:hover {
-            background-color: #1c7694; /* Adjust the button background color on hover */
+            background-color: #1c7694;
         }
-       
+
+        .technicians-section {
+            background-color: #ffffff;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 250px;
+        }
+
+        .technicians-intro {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            margin-top: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .technicians-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .technician-card {
+            flex: 0 0 auto;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            padding: 10px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            text-decoration: none; /* Remove text decoration */
+            color: inherit; /* Inherit the color */
+        }
+
+        .technician-card:hover {
+            transform: scale(1.05);
+        }
+
+        .technician-card img {
+            width: 100%;
+            border-radius: 2px;
+            height: 220px;
+        }
+
+        .technician-card h3 {
+            font-size: 18px;
+            margin: 10px 0 5px;
+        }
+
+        .technician-card p {
+            font-size: 16px;
+            margin: 0;
+        }
     </style>
 {% endblock %}
 
@@ -120,13 +177,11 @@
             <div class="first-section">
                 <div class="left-section">
                     <img src="images/im16.jpg" alt="Image" class="left-image">
-                    <!-- Content for the left section -->
                 </div>
                 <div class="right-section">
                     <video src="images/1.mp4" autoplay muted loop controls class="right-video"></video>
                 </div>
             </div>
-            <!-- Rest of the header content -->
         </div>
     </section>
 
@@ -135,7 +190,6 @@
             <h2>Why Choose VoltVilla for Home Appliances?</h2>
             <p>When your appliance encounters an issue, we send a technician to your doorstep!</p>
             <p>With VoltVilla, enjoy hassle-free shopping for all your home appliances.</p>
-            <!-- Add more advertising phrases as needed -->
         </div>
     </section>
 
@@ -146,12 +200,23 @@
             </div>
             <div class="right-sectionn">
                 <img src="images/im9.jpg" alt="Image" class="left-imagee">
-                <!-- Image goes here -->
             </div>
         </div>
-
     </section>
 
+    <section class="technicians-section">
+        <div class="technicians-intro">
+            Meet Our Professional Technicians
+        </div>
+        <div class="technicians-container">
+            {% for tech in techneciens %}
+                <a href="{{ path('app_technecien_showme', {'id': tech.id}) }}" class="technician-card">
+                    <img src="images/tech{{ tech.id }}.jpg" alt="Technician {{ tech.id }}">
+                    <h3>{{ tech.Prenom }} {{ tech.Nom }}</h3>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
 
     {% include 'footer/footer.html.twig' %}
 {% endblock %}

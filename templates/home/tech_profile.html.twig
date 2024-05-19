@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Technician Profile{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        {{ parent() }}
+        .profile-container {
+            margin-top:280px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            margin-bottom:250px;
+        }
+
+        .profile-header {
+            margin-bottom: 10px;
+        }
+
+        .profile-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+        }
+
+        .profile-info {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .profile-info h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .profile-info p {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% include 'header/header.html.twig' %}
+
+    <div class="profile-container">
+    <br><br><br><br>
+        <div class="profile-header">
+            <h1>{{ technecien.Prenom }} {{ technecien.Nom }}</h1>
+        </div>
+        <img src="{{ asset('images/tech' ~ technecien.id ~ '.jpg') }}" alt="{{ technecien.Prenom }} {{ technecien.Nom }}" class="profile-image">
+        <div class="profile-info">
+            <h2>Technician Details</h2>
+            <p><strong>First Name:</strong> {{ technecien.Prenom }}</p>
+            <p><strong>Last Name:</strong> {{ technecien.Nom }}</p>
+       
+            <!-- Add more fields as necessary -->
+        </div>
+    </div>
+
+    {% include 'footer/footer.html.twig' %}
+{% endblock %}
