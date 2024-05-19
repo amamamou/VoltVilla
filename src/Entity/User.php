@@ -51,6 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'CodeClt', targetEntity: Reclamation::class)]
     private Collection $reclamations;
+    
 
     public function __construct()
     {
@@ -235,6 +236,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+
     public function __toString(): string
     {
         return $this->getEmail(); // Or any other field that represents the user

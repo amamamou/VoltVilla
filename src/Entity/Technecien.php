@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\TechnecienRepository;
@@ -20,6 +19,9 @@ class Technecien
 
     #[ORM\Column(length: 255)]
     private ?string $Prenom = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $available = true; // New attribute for availability
 
     #[ORM\OneToMany(mappedBy: 'CodeTech', targetEntity: Intervention::class)]
     private Collection $interventions;
@@ -58,6 +60,18 @@ class Technecien
         return $this;
     }
 
+    public function isAvailable(): bool // Getter for availability
+    {
+        return $this->available;
+    }
+
+    public function setAvailable(bool $available): static // Setter for availability
+    {
+        $this->available = $available;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Intervention>
      */
@@ -73,6 +87,9 @@ class Technecien
             $intervention->setCodeTech($this);
         }
 
+        // Update availability status
+        $this->setAvailable(false);
+
         return $this;
     }
 
@@ -85,6 +102,18 @@ class Technecien
             }
         }
 
+        // Check if there are any remaining interventions
+        $remainingInterventions = $this->getInterventions()->count();
+        if ($remainingInterventions === 0) {
+            // If no interventions remaining, set availability to true
+            $this->setAvailable(true);
+        }
+
         return $this;
+    }
+    
+    public function __toString()
+    {
+        return $this->Nom; // Assuming 'name' is a property of Technecien entity
     }
 }

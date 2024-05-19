@@ -25,8 +25,11 @@ class Reclamation
     private ?User $CodeClt = null;
 
     #[ORM\ManyToOne(inversedBy: 'reclamations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Produit $ReferencePd = null;
+
+    #[ORM\OneToOne(inversedBy: 'reclamation', cascade: ['persist', 'remove'])]
+    private ?Intervention $interventionId = null;
 
     public function getId(): ?int
     {
@@ -77,6 +80,18 @@ class Reclamation
     public function setReferencePd(?Produit $ReferencePd): static
     {
         $this->ReferencePd = $ReferencePd;
+
+        return $this;
+    }
+
+    public function getIntervention(): ?Intervention
+    {
+        return $this->interventionId;
+    }
+
+    public function setIntervention(?Intervention $interventionId): static
+    {
+        $this->interventionId = $interventionId;
 
         return $this;
     }

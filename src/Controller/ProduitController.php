@@ -21,7 +21,15 @@ class ProduitController extends AbstractController
             'produits' => $produitRepository->findAll(),
         ]);
     }
+    #[Route('/produits', name: 'app_produits_index', methods: ['GET'])]
+    public function produits(ProduitRepository $produitRepository): Response
+    {
+        return $this->render('admin/produit/produits.html.twig', [
+            'produits' => $produitRepository->findAll(),
+        ]);
+    }
 
+    
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -69,13 +77,23 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
-    public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($produit);
-            $entityManager->flush();
-        }
+public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+{
+    // Check if the CSRF token is valid
+    if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
+        // Remove the entity and flush the changes
+        $entityManager->remove($produit);
+        $entityManager->flush();
 
-        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+        // Add a flash message to indicate successful deletion
+        $this->addFlash('success', 'Produit deleted successfully');
+    } else {
+        // CSRF token is invalid
+        $this->addFlash('error', 'CSRF token invalid');
     }
+
+    // Redirect to the index page after deletion
+    return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+}
+
 }

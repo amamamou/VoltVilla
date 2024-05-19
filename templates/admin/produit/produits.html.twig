@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Technecien index{% endblock %}
+{% block title %}Produit index{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-
     <style>
         .sidebar {
             height: 100%;
@@ -41,18 +40,9 @@
             padding: 20px;
         }
 
-        .table th, .table td {
+        .table th,
+        .table td {
             vertical-align: middle;
-        }
-
-        .btn-review {
-            background-color: #6c757d;
-            color: white;
-        }
-
-        .btn-review:hover {
-            background-color: #5a6268;
-            color: white;
         }
 
         .content h1 {
@@ -88,75 +78,47 @@
             background-color: #dc3545; /* Red */
             border-color: #dc3545;
             color: #fff;
-            margin-top: 16px;
-        }
-   /* New style for circular availability indicator */
-        .availability-circle {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%; /* Create a circular shape */
-            display: inline-block;
-            margin-right: 5px; /* Add some spacing between the circle and text */
-        }
-
-        /* Green circle for available */
-        .available .availability-circle {
-            background-color: green;
-        }
-
-        /* Red circle for unavailable */
-        .unavailable .availability-circle {
-            background-color: red;
+            margin-top:16px;
         }
     </style>
 {% endblock %}
-
 {% block body %}
     {% include 'admin/sidebar/sidebar.html.twig' %}
 
     <div class="content">
-        <h1>Technicien Management</h1>
+        <h1>Produit Management</h1>
 
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Disponibilité</th>
+                    <th>Id</th>
+                    <th>Designation</th>
+                    <th>Price</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for technecien in techneciens %}
+                {% for produit in produits %}
                     <tr>
-                        <td>{{ technecien.id }}</td>
-                        <td>{{ technecien.Nom }}</td>
-                        <td>{{ technecien.Prenom }}</td>
-                        <td class="{% if technecien.available %}available{% else %}unavailable{% endif %}">
-                            <span class="availability-circle"></span>
-                            {% if technecien.available %}
-                                Disponible
-                            {% else %}
-                                Non disponible
-                            {% endif %}
-                        </td>
+                        <td>{{ produit.id }}</td>
+                        <td>{{ produit.Designation }}</td>
+                        <td>{{ produit.Prix }}</td>
                         <td>
-                            <div class="btn-group custom-button-group" role="group" aria-label="Technecien actions">
-                                <a href="{{ path('app_technecien_show', {'id': technecien.id}) }}" class="btn btn-primary btn-sm">Show</a>
-                                <a href="{{ path('app_technecien_edit', {'id': technecien.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
-                                <div>{{ include('technecien/_delete_form.html.twig', {'button_class': 'btn btn-danger btn-sm'}) }}</div>
+                            <div class="btn-group custom-button-group" role="group" aria-label="Produit actions">
+                                <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-primary btn-sm">Show</a>
+                                <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
+                                <div>{{ include('admin/produit/_delete_form.html.twig', {'button_class': 'btn btn-danger btn-sm', 'produit_id': produit.id}) }}</div>
                             </div>
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="5" class="text-center">No techneciens found</td>
+                        <td colspan="4">No records found</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('app_technecien_new') }}" class="btn btn-primary">Add a new one</a>
+        <a href="{{ path('app_produit_new') }}" class="btn btn-primary">Create new</a>
     </div>
 {% endblock %}

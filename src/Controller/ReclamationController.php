@@ -15,15 +15,16 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/reclamation')]
 class ReclamationController extends AbstractController // Extend AbstractController
 {
-    #[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
-    public function index(ReclamationRepository $reclamationRepository): Response
+    #[Route('/all', name: 'app_reclamation_all', methods: ['GET'])]
+    public function all(ReclamationRepository $reclamationRepository): Response
     {
         return $this->render('reclamation/index.html.twig', [
             'reclamations' => $reclamationRepository->findAll(),
         ]);
     }
 
-
+    
+    
 
     #[Route('/new', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -102,14 +103,33 @@ class ReclamationController extends AbstractController // Extend AbstractControl
 
 
     #[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
-    public function index2(ReclamationRepository $reclamationRepository): Response
-    {
-        // Fetch reclamations for the authenticated user
-        $user = $this->getUser();
-        $reclamations = $reclamationRepository->findBy(['CodeClt' => $user]);
+public function index(ReclamationRepository $reclamationRepository): Response
+{
+    // Fetch all reclamations
+    $reclamations = $reclamationRepository->findAll();
 
-        return $this->render('reclamation/index.html.twig', [
-            'reclamations' => $reclamations,
-        ]);
+    return $this->render('reclamation/index.html.twig', [
+        'reclamations' => $reclamations,
+    ]);
+}
+#[Route('/{id}/intervention', name: 'app_reclamation_intervention', methods: ['POST'])]
+public function intervention(Request $request, Reclamation $reclamation, EntityManagerInterface $entityManager): Response
+{
+    $interventionStatus = $request->request->get('intervention_status');
+
+    // Check if the reclamation has an associated intervention
+    if ($reclamation->getIntervention()) {
+        if ($interventionStatus === 'complete') {
+            // Update the intervention status to complete (1) in the database
+            $reclamation->getIntervention()->setStatus(1);
+            $entityManager->flush();
+        }
+    } else {
+        // Handle the case where there is no associated intervention
+        // You can add a flash message or handle this situation according to your application's logic
     }
+
+    // Redirect back to the reclamation show page
+    return $this->redirectToRoute('app_reclamation_show', ['id' => $reclamation->getId()]);
+}
 }

@@ -1,37 +1,123 @@
+{# templates/reclamation/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Reclamation index{% endblock %}
+{% block title %}Reclamation Index{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        .sidebar {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40; /* Bootstrap dark color */
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidebar-header img {
+            max-width: 100px;
+        }
+
+        .sidebar-header h2 {
+            font-family: 'Oswald', sans-serif;
+            color: #fff;
+            margin: 0;
+        }
+
+        .sidebar-menu a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: #495057; /* Bootstrap darker color */
+        }
+
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .btn-review {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-review:hover {
+            background-color: #5a6268;
+            color: white;
+        }
+
+     
+        .content h1{
+            font-family: 'Oswald', sans-serif; /* Using Oswald for titles */
+            text-align:center;
+
+        }
+        /* Custom CSS */
+.custom-button-group .btn {
+    /* Add your custom button styles here */
+    border-radius: 0px;
+    margin-right: 5px;
+}
+
+.custom-button-group .btn-primary {
+    background-color: #007bff; /* Blue */
+    border-color: #007bff;
+    color: #fff;
+}
+
+.custom-button-group .btn-danger {
+    background-color: #dc3545; /* Red */
+    border-color: #dc3545;
+    color: #fff;
+}
+
+
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Reclamation index</h1>
+    {% include 'admin/sidebar/sidebar.html.twig' %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>DateReclamation</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for reclamation in reclamations %}
-            <tr>
-                <td>{{ reclamation.id }}</td>
-                <td>{{ reclamation.DateReclamation ? reclamation.DateReclamation|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ reclamation.Description }}</td>
-                <td>
-                    <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">show</a>
-                    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="content">
+        <h1>Reclamation Management</h1>
 
-    <a href="{{ path('app_reclamation_new') }}">Create new</a>
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Date Reclamation</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for reclamation in reclamations %}
+                <tr>
+                    <td>{{ reclamation.id }}</td>
+                    <td>{{ reclamation.DateReclamation ? reclamation.DateReclamation|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ reclamation.Description }}</td>
+            <td class="text-center">
+            <div class="btn-group custom-button-group" role="group" aria-label="Reclamation actions">
+                {{ include('reclamation/_delete_form.html.twig', {'button_class': 'btn btn-danger btn-sm'}) }}
+            </div>
+        </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

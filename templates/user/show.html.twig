@@ -93,8 +93,6 @@
             position: relative; /* Add relative position */
             text-decoration: none; /* Remove default underline */
             color: inherit; /* Inherit color from parent */
-
-
         }
 
         .reclamation h3 {
@@ -129,21 +127,43 @@
             text-align: center; /* Centering the reclamation header */
         }
         .reclamation-link {
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    cursor: default; /* Change cursor to default */
-    text-decoration: none; /* Remove default underline */
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            cursor: pointer; /* Change cursor to pointer */
+            text-decoration: none; /* Remove default underline */
+        }
+        .logout-icon {            margin-left: 1000px;
+        }
+        /* New styles for the Mark as Complete button */
+/* Center the Mark as Complete button */
+.intervention-form {
+    text-align: center;
+    margin-top: 20px;
 }
-.logout-icon{
-    margin-left:1000px;
+
+.complete-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
+.complete-button:hover {
+    background-color: #218838;
+}
+
     </style>
 {% endblock %}
+
 {% block body %}
     {% include 'header/header.html.twig' %}
 
@@ -172,7 +192,6 @@
                     <tr>
                         <th>Postal Code</th>
                         <td>{{ user.cp }}</td>
-                        
                     </tr>
                 </tbody>
             </table>
@@ -182,22 +201,50 @@
     <div class="separator"></div> <!-- Separator line -->
     <div class="reclamation-header">
     </div>
-   <div class="reclamation-list">
-    {% if user.reclamations is not empty %}
-        {% for reclamation in user.reclamations %}
-            {% set productName = reclamation.referencePd.designation %}
-            <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}" class="reclamation">
-                <div>
-                    <h3>Product Name: {{ productName }}</h3>
-                    <p><strong>Date:</strong> {{ reclamation.dateReclamation|date('Y-m-d H:i:s') }}</p>
-                    <p><strong>Description:</strong> {{ reclamation.description }}</p>
-                </div>
-            </a>
-        {% endfor %}
-    {% else %}
-        <p>No reclamations found.</p>
-    {% endif %}
-</div>
+    <div class="reclamation-list">
+        {% if user.reclamations is not empty %}
+            {% for reclamation in user.reclamations %}
+                {% set productName = reclamation.referencePd.designation %}
+                <a {% if reclamation.intervention is null %}href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}"{% endif %} class="reclamation">
+                    <div>
+                        <h3>Product Name: {{ productName }}</h3>
+                        <p><strong>Date:</strong> {{ reclamation.dateReclamation|date('Y-m-d H:i:s') }}</p>
+                        <p><strong>Description:</strong> {{ reclamation.description }}</p>
+                        {% if reclamation.intervention is not null %}
+                            {% if reclamation.intervention.status == 0 %}
+                                <!-- Intervention form -->
+                              <form action="{{ path('app_reclamation_intervention', {'id': reclamation.id}) }}" method="POST" class="intervention-form">
+    <input type="hidden" name="intervention_status" value="complete">
+    <button type="submit" class="complete-button">Marquer l'intervention comme terminée</button>
+</form>
+
+
+                            {% else %}
+                                <p style="color: green; text-align:center;">Intervention Completed</p>
+                                <p><strong>Started Date:</strong> {{ reclamation.intervention.DateInterv|date('Y-m-d H:i:s') }}</p>
+                                <p><strong>Technician:</strong> {{ reclamation.intervention.CodeTech.nom }} {{ reclamation.intervention.CodeTech.prenom }}</p>
+                            {% endif %}
+                        {% else %}
+                            <p>Nous sommes désolés pour le problème causé. Nous vous enverrons un technicien le plus proche possible.</p>
+                        {% endif %}
+                    </div>
+                </a>
+                {% if reclamation.intervention is not null and reclamation.intervention.status == 1 %}
+                    <!-- Disable pointer cursor for completed interventions -->
+                    <style>
+                        .reclamation.no-pointer {
+                            cursor: default;
+                        }
+                    </style>
+                    <script>
+                        document.querySelector('.reclamation').classList.add('no-pointer');
+                    </script>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No reclamations found.</p>
+        {% endif %}
+    </div>
 
     {% include 'footer/footer.html.twig' %}
 {% endblock %}

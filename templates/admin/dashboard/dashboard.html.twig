@@ -1,0 +1,25 @@
+{# templates/admin/dashboard.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        
+
+        .content {
+            margin-left: 220px; /* Adjust based on sidebar width */
+            padding: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% include 'admin/sidebar/sidebar.html.twig' %}
+
+    <div class="content">
+        <h1>Welcome to the Admin Dashboard</h1>
+        <p>This is the main content area where you can manage your application.</p>
+    </div>
+{% endblock %}

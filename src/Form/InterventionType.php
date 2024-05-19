@@ -13,6 +13,7 @@ class InterventionType extends AbstractType
     {
         $builder
             ->add('DateInterv')
+            ->add('Status') // Add the 'status' field here
             ->add('CodeClt')
             ->add('ReferencePd')
             ->add('CodeTech')

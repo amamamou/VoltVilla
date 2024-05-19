@@ -28,6 +28,12 @@ class Intervention
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Technecien $CodeTech = null;
 
+    #[ORM\Column]
+    private ?int $status = null;
+
+    #[ORM\OneToOne(mappedBy: 'interventionId', cascade: ['persist', 'remove'])]
+    private ?Reclamation $reclamation = null;
+
     public function __construct()
     {
         $this->ReferencePd = new ArrayCollection();
@@ -97,4 +103,37 @@ class Intervention
 
         return $this;
     }
-}
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getReclamation(): ?Reclamation
+    {
+        return $this->reclamation;
+    }
+
+    public function setReclamation(?Reclamation $reclamation): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($reclamation === null && $this->reclamation !== null) {
+            $this->reclamation->setInterventionId(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($reclamation !== null && $reclamation->getInterventionId() !== $this) {
+            $reclamation->setInterventionId($this);
+        }
+
+        $this->reclamation = $reclamation;
+
+        return $this;
+    }}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {% block stylesheets %}{% endblock %}
+    <style>
+        /* Your sidebar CSS styles */
+        .sidebar {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-family: 'Oswald', sans-serif;
+            color: #fff;
+            margin: 0;
+        }
+
+        .sidebar-menu {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: #555;
+        } /* Bootstrap darker color */
+    </style>
+</head>
+<body>
+
+<div class="sidebar bg-dark text-light">
+    <div class="sidebar-header text-center py-3">
+        <img src="{{ asset('images/vv.png') }}" alt="VOLTVILA Logo" class="img-fluid mb-2" style="max-width: 100px;">
+        <h2 class="h5">VOLTVILLA</h2>
+    </div>
+    <div class="sidebar-menu list-group list-group-flush">
+        <a class="list-group-item list-group-item-action bg-dark text-light">Dashboard Home</a>
+        <a href="{{ path('app_produits_index') }}" class="list-group-item list-group-item-action bg-dark text-light">Products</a>
+        <a href="{{ path('app_user_index') }}" class="list-group-item list-group-item-action bg-dark text-light">Users</a>
+        <a href="{{ path('app_technecien_index') }}" class="list-group-item list-group-item-action bg-dark text-light">Techniciens</a>
+        <a href="{{ path('app_reclamation_index') }}" class="list-group-item list-group-item-action bg-dark text-light">Reclamations</a>
+        <a href="{{ path('app_intervention_index') }}" class="list-group-item list-group-item-action bg-dark text-light">Interventions</a>
+         <a href="#" class="list-group-item list-group-item-action bg-dark text-light">Profile</a>
+        <a href="#"  class="list-group-item list-group-item-action bg-dark text-light">Settings</a>
+        <a href="#"class="list-group-item list-group-item-action bg-dark text-light">Help</a>
+    </div>
+    <!-- Copyright notice -->
+    <div class="text-center mt-5 text-white">
+        <small>&copy; 2024 VOLTVILLA. All rights reserved.</small>
+    </div>
+</div>
+
+<!-- Bootstrap JS (Optional, if you need JavaScript functionality) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
