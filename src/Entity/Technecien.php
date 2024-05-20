@@ -26,6 +26,12 @@ class Technecien
     #[ORM\OneToMany(mappedBy: 'CodeTech', targetEntity: Intervention::class)]
     private Collection $interventions;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $phone = null;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
@@ -115,5 +121,29 @@ class Technecien
     public function __toString()
     {
         return $this->Nom; // Assuming 'name' is a property of Technecien entity
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): static
+    {
+        $this->phone = $phone;
+
+        return $this;
     }
 }

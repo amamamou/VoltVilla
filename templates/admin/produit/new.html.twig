@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Produit{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* Custom styles for the New Produit page */
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        .content h1 {
+            font-family: 'Oswald', sans-serif;
+            margin-bottom: 20px;
+            color: #9f608f; /* Custom color */
+        }
+
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #9f608f; /* Custom color */
+        }
+
+        /* Button styles */
+        .btn-submit {
+            background-color: #9f9f60; /* Custom color */
+            border-color: #9f9f60; /* Custom color */
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #7e7e47; /* Custom hover color */
+        }
+
+        /* Icon styles */
+        .fa {
+            margin-right: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% include 'admin/sidebar/sidebar.html.twig' %}
+
+    <div class="content">
+        <h1><i class="fas fa-box mr-2"></i> New Produit</h1>
+
+        <div class="form-container">
+            <form action="{{ path('app_produit_new') }}" method="post">
+                <div class="form-group">
+                    <label for="designation">Designation:</label>
+                    <input type="text" id="designation" name="designation" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="price" class="form-control" required>
+                </div>
+
+                <!-- Add more form fields as needed -->
+
+<button type="submit" class="btn btn-submit"><i class="ri-save-line mr-2"></i> Save</button>
+            </form>
+        </div>
+
+        <a href="{{ path('app_produits_index') }}" class="btn btn-danger" style="background-color: #ff00bf;"><i class="fas fa-chevron-left"></i> Back to list</a>
+    </div>
+{% endblock %}

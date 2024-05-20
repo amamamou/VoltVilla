@@ -4,50 +4,25 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
     <style>
-        .sidebar {
-            height: 100%;
-            width: 200px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #343a40; /* Bootstrap dark color */
-            overflow-x: hidden;
-            padding-top: 20px;
-        }
-
-        .sidebar-header img {
-            max-width: 100px;
-        }
-
-        .sidebar-header h2 {
-            font-family: 'Oswald', sans-serif;
-            color: #fff;
-            margin: 0;
-        }
-
-        .sidebar-menu a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .sidebar-menu a:hover {
-            background-color: #495057; /* Bootstrap darker color */
-        }
-
+        /* Custom styles for the Produit Management section */
         .content {
             margin-left: 220px;
             padding: 20px;
         }
 
+        .content h1 {
+            font-family: 'Oswald', sans-serif;
+            margin-bottom: 20px;
+            color: #9f608f; /* Custom color */
+        }
+
         .table th,
         .table td {
             vertical-align: middle;
-        }
-
-        .content h1 {
-            font-family: 'Oswald', sans-serif; /* Using Oswald for titles */
-            text-align: center;
         }
 
         /* Custom Button Group */
@@ -63,8 +38,8 @@
         }
 
         .custom-button-group .btn-primary {
-            background-color: #007bff; /* Blue */
-            border-color: #007bff;
+            background-color: #9f9f60; /* Custom color */
+            border-color: #9f9f60; /* Custom color */
             color: #fff;
         }
 
@@ -78,23 +53,31 @@
             background-color: #dc3545; /* Red */
             border-color: #dc3545;
             color: #fff;
-            margin-top:16px;
+            margin-top: 16px;
+        }
+
+        /* Icon styles */
+        .fa {
+            margin-right: 5px;
         }
     </style>
 {% endblock %}
+
 {% block body %}
     {% include 'admin/sidebar/sidebar.html.twig' %}
 
     <div class="content">
-        <h1>Produit Management</h1>
+        <h1><i class="fas fa-box mr-2"></i> Produit Management</h1>
+        <a href="{{ path('app_produit_new') }}" class="btn btn-dangerr style="background-color: #ff00bf;"><i class="fas fa-plus"></i> Create new</a>
+
 
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>Id</th>
-                    <th>Designation</th>
-                    <th>Price</th>
-                    <th>Actions</th>
+                    <th><i class="fas fa-id-badge"></i> Id</th>
+                    <th><i class="fas fa-file-signature"></i> Designation</th>
+                    <th><i class="fas fa-money-bill-wave"></i> Price</th>
+                    <th><i class="fas fa-cogs"></i> Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -105,8 +88,8 @@
                         <td>{{ produit.Prix }}</td>
                         <td>
                             <div class="btn-group custom-button-group" role="group" aria-label="Produit actions">
-                                <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-primary btn-sm">Show</a>
-                                <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
+                                <a href="{{ path('app_produit_showsadmin', {'id': produit.id}) }}" class="btn btn-primary btn-sm" style="background-color: #9f9f60;"><i class="fas fa-eye"></i> Show</a>
+                                <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-secondary btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                 <div>{{ include('admin/produit/_delete_form.html.twig', {'button_class': 'btn btn-danger btn-sm', 'produit_id': produit.id}) }}</div>
                             </div>
                         </td>
@@ -119,6 +102,5 @@
             </tbody>
         </table>
 
-        <a href="{{ path('app_produit_new') }}" class="btn btn-primary">Create new</a>
     </div>
 {% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Produit{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* Custom styles for the Edit Produit page */
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        .content h1 {
+            font-family: 'Oswald', sans-serif;
+            margin-bottom: 20px;
+            color: #9f608f; /* Custom color */
+        }
+
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #9f608f; /* Custom color */
+        }
+
+        /* Button styles */
+        .btn-submit {
+            background-color: #9f9f60; /* Custom color */
+            border-color: #9f9f60; /* Custom color */
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #7e7e47; /* Custom hover color */
+        }
+
+        /* Icon styles */
+        .fa {
+            margin-right: 10px;
+        }
+
+        /* Back button styles */
+        .btn-back {
+            background-color: #ff00bf; /* Custom color */
+            border-color: #ff00bf; /* Custom color */
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: #c800a6; /* Custom hover color */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% include 'admin/sidebar/sidebar.html.twig' %}
+
+    <div class="content">
+        <h1><i class="fas fa-box mr-2"></i> Edit Produit</h1>
+
+        <div class="form-container">
+            {{ include('admin/produit/_form.html.twig', {'button_label': 'Update'}) }}
+        </div>
+
+        <a href="{{ path('app_produits_index') }}" class="btn btn-back"><i class="fas fa-chevron-left"></i> Back to list</a>
+    </div>
+{% endblock %}

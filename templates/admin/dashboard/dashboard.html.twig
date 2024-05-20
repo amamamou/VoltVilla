@@ -5,21 +5,230 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        
+        /* Custom styles for the admin dashboard */
 
+        /* Sidebar */
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 220px;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            padding-top: 20px;
+        }
+
+        .sidebar-item {
+            padding: 10px 20px;
+            border-bottom: 1px solid #555;
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover {
+            background-color: #444;
+        }
+
+        /* Content */
         .content {
-            margin-left: 220px; /* Adjust based on sidebar width */
+            margin-left: 220px;
             padding: 20px;
+        }
+
+        .dashboard-heading {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-heading {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .section-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            width: calc(33.33% - 20px);
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card-description {
+            font-size: 16px;
+            color: #666;
         }
     </style>
 {% endblock %}
 
 {% block body %}
-    {% include 'admin/sidebar/sidebar.html.twig' %}
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <i class="fas fa-home"></i> Dashboard
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-users"></i> Users
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-tools"></i> Techniciens
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-box"></i> Products
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-exclamation-triangle"></i> Reclamations
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-wrench"></i> Interventions
+        </div>
+    </div>
 
     <div class="content">
-        <h1>Welcome to the Admin Dashboard</h1>
-        <p>This is the main content area where you can manage your application.</p>
+        <h1 class="dashboard-heading">Welcome to the Admin Dashboard</h1>
+
+        <div class="section">
+            <h2 class="section-heading">Users</h2>
+            <div class="section-content">
+                <!-- Placeholder content for Users section -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/400x200" alt="User" class="card-img">
+                    <div class="card-title">John Doe</div>
+                    <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                </div>
+                <div class="card">
+                    <img src="https://via.placeholder.com/400x200" alt="User" class="card-img">
+                    <div class="card-title">Jane Smith</div>
+                    <div class="card-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                </div>
+                <div class="card">
+                    <img src="https://via.placeholder.com/400x200" alt="User" class="card-img">
+                    <div class="card-title">Alice Johnson</div>
+                    <div class="card-description">Ut
+    <div class="section">
+        <h2 class="section-heading">Techniciens</h2>
+        <div class="section-content">
+            <!-- Placeholder content for Techniciens section -->
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Technicien" class="card-img">
+                <div class="card-title">Mark Johnson</div>
+                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Technicien" class="card-img">
+                <div class="card-title">Emily Watson</div>
+                <div class="card-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Technicien" class="card-img">
+                <div class="card-title">Michael Brown</div>
+                <div class="card-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            </div>
+        </div>
     </div>
+
+    <div class="section">
+        <h2 class="section-heading">Products</h2>
+        <div class="section-content">
+            <!-- Placeholder content for Products section -->
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Product" class="card-img">
+                <div class="card-title">Smartphone</div>
+                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Product" class="card-img">
+                <div class="card-title">Laptop</div>
+                <div class="card-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Product" class="card-img">
+                <div class="card-title">TV</div>
+                <div class="card-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-heading">Reclamations</h2>
+        <div class="section-content">
+            <!-- Placeholder content for Reclamations section -->
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Reclamation" class="card-img">
+                <div class="card-title">Faulty Device</div>
+                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Reclamation" class="card-img">
+                <div class="card-title">Late Delivery</div>
+                <div class="card-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Reclamation" class="card-img">
+                <div class="card-title">Damaged Product</div>
+                <div class="card-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-heading">Interventions</h2>
+        <div class="section-content">
+            <!-- Placeholder content for Interventions section -->
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Intervention" class="card-img">
+                <div class="card-title">Repair Request</div>
+                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Intervention" class="card-img">
+                <div class="card-title">Installation</div>
+                <div class="card-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Intervention" class="card-img">
+                <div class="card-title">Maintenance</div>
+                <div class="card-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

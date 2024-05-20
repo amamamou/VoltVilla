@@ -137,7 +137,10 @@ class Intervention
 
         return $this;
     }
-
+    public function __toString()
+    {
+        return $this->getStatus(); // Replace getName() with the method that returns the appropriate string representation of your Intervention entity.
+    }
 
     
 }

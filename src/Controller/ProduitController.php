@@ -28,6 +28,7 @@ class ProduitController extends AbstractController
             'produits' => $produitRepository->findAll(),
         ]);
     }
+    
 
     
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
@@ -44,7 +45,7 @@ class ProduitController extends AbstractController
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('produit/new.html.twig', [
+        return $this->renderForm('admin/produit/new.html.twig', [
             'produit' => $produit,
             'form' => $form,
         ]);
@@ -58,6 +59,18 @@ class ProduitController extends AbstractController
         ]);
     }
 
+
+
+
+    #[Route('/{id}', name: 'app_produit_showsadmin', methods: ['GET'])]
+    public function admin(Produit $produit): Response
+    {
+        return $this->render('admin/produit/show.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
+
+
     #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
@@ -67,10 +80,10 @@ class ProduitController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('produit/edit.html.twig', [
+        return $this->renderForm('admin/produit/edit.html.twig', [
             'produit' => $produit,
             'form' => $form,
         ]);
@@ -93,7 +106,7 @@ public function delete(Request $request, Produit $produit, EntityManagerInterfac
     }
 
     // Redirect to the index page after deletion
-    return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+    return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
 }
 
 }
