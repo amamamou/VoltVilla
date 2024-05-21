@@ -55,9 +55,10 @@
             color: white;
         }
 
-        .content h1 {
-            font-family: 'Oswald', sans-serif; /* Using Oswald for titles */
-            text-align: center;
+       .content h1 {
+            font-family: 'Oswald', sans-serif;
+            margin-bottom: 20px;
+            color: #9f608f; /* Custom color */
         }
 
         /* Custom Button Group */
@@ -72,9 +73,9 @@
             border-radius: 0;
         }
 
-        .custom-button-group .btn-primary {
-            background-color: #007bff; /* Blue */
-            border-color: #007bff;
+       .custom-button-group .btn-primary {
+            background-color: #9f9f60; /* Custom color */
+            border-color: #9f9f60; /* Custom color */
             color: #fff;
         }
 
@@ -108,6 +109,18 @@
         .unavailable .availability-circle {
             background-color: red;
         }
+        /* CSS to style the profile picture */
+/* CSS to center the profile picture */
+.technecien-profile-picture {
+    width: 50px; /* Adjust the width as needed */
+    height: 50px; /* Adjust the height as needed */
+    border-radius: 50%; /* Make it round */
+    display: block; /* Ensure it's a block-level element */
+    margin: 0 auto; /* Center horizontally */
+}
+
+
+
     </style>
 {% endblock %}
 
@@ -115,48 +128,65 @@
     {% include 'admin/sidebar/sidebar.html.twig' %}
 
     <div class="content">
-        <h1>Technicien Management</h1>
+        <h1><i class="fas fa-tools mr-2"></i> Technicien Management</h1>
+        <a href="{{ path('app_technecien_new') }}" class="btn btn-dangerr"><i class="fas fa-plus"></i>Add a new one</a>
+
 
         <table class="table table-hover table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Disponibilité</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for technecien in techneciens %}
-                    <tr>
-                        <td>{{ technecien.id }}</td>
-                        <td>{{ technecien.Nom }}</td>
-                        <td>{{ technecien.Prenom }}</td>
-                        <td class="{% if technecien.available %}available{% else %}unavailable{% endif %}">
-                            <span class="availability-circle"></span>
-                            {% if technecien.available %}
-                                Disponible
-                            {% else %}
-                                Non disponible
-                            {% endif %}
-                        </td>
-                        <td>
-                            <div class="btn-group custom-button-group" role="group" aria-label="Technecien actions">
-                                <a href="{{ path('app_technecien_show', {'id': technecien.id}) }}" class="btn btn-primary btn-sm">Show</a>
-                                <a href="{{ path('app_technecien_edit', {'id': technecien.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
-                                <div>{{ include('technecien/_delete_form.html.twig', {'button_class': 'btn btn-danger btn-sm'}) }}</div>
-                            </div>
-                        </td>
-                    </tr>
+           <!-- Inside your Twig template -->
+           <!-- Inside your Twig template -->
+<thead class="thead-dark">
+    <tr>
+        <th><i class="fas fa-id-badge"></i> ID</th>
+                <th><i class="fas fa-image"></i> Profile</th>
+
+        <th><i class="fas fa-user"></i> Nom</th>
+        <th><i class="fas fa-user"></i> Prenom</th>
+        <th><i class="fas fa-envelope"></i> Email</th>
+        <th><i class="fas fa-phone"></i> Phone</th>
+        <th><i class="fas fa-check-circle"></i> Disponibilité</th>
+        <th><i class="fas fa-cogs"></i> Actions</th>
+    </tr>
+</thead>
+
+<tbody>
+    {% for technecien in techneciens %}
+        <tr>
+            <td>{{ technecien.id }}</td>
+              <td>
+                <img src="{{ asset('images/tech' ~ technecien.id ~ '.jpg') }}" alt="Profile Picture" class="technecien-profile-picture">
+            </td>
+            <td>{{ technecien.Nom }}</td>
+            <td>{{ technecien.Prenom }}</td>
+            <td>{{ technecien.email }}</td>
+            <td>+{{ technecien.phone }}</td>
+          
+            <td class="{% if technecien.available %}available{% else %}unavailable{% endif %}">
+                <span class="availability-circle"></span>
+                {% if technecien.available %}
+                    Disponible
                 {% else %}
-                    <tr>
-                        <td colspan="5" class="text-center">No techneciens found</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
+                    Non disponible
+                {% endif %}
+            </td>
+            <td>
+                <div class="btn-group custom-button-group" role="group" aria-label="Technecien actions">
+                    <a href="{{ path('app_technecien_show', {'id': technecien.id}) }}" class="btn btn-primary btn-sm" style="background-color: #9f9f60;"><i class="fas fa-eye"></i> Show</a>
+                    <a href="{{ path('app_technecien_edit', {'id': technecien.id}) }}" class="btn btn-secondary btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                    <div>{{ include('technecien/_delete_form.html.twig', {'button_class': 'btn btn-danger btn-sm'}) }}</div>
+                </div>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="8" class="text-center">No techneciens found</td>
+        </tr>
+    {% endfor %}
+</tbody>
+
+
         </table>
 
-        <a href="{{ path('app_technecien_new') }}" class="btn btn-primary">Add a new one</a>
+
     </div>
 {% endblock %}

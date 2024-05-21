@@ -1,30 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Technician Profile{% endblock %}
+{% block title %}Produit{% endblock %}
 
 {% block stylesheets %}
     <style>
-        {{ parent() }}
-
-        .profile-container {
+        .product-details-container {
             background-color: #f9f9f9;
             display: flex;
             margin-top: 50px;
             margin-bottom: 180px;
         }
 
+        .left-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
         .left-section, .right-section {
             flex: 1;
-            padding: 20px;
         }
 
         .left-section img {
             max-width: 100%;
-            height: auto;
-            border-radius: 10px;
+            height: 550px;
+            margin-top: -100px;
         }
 
         .right-section {
+            height: 700px;
+            padding-left: 20px;
+            padding-right: 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -34,7 +40,7 @@
         .product-title {
             text-align: center;
             font-family: 'Oswald', sans-serif;
-            font-size: 36px;
+            font-size: 60px;
             margin-bottom: 20px;
         }
 
@@ -64,6 +70,44 @@
             width: 24px;
         }
 
+        .exploree-button {
+            padding: 15px 30px;
+            background-color: #100d07;
+            color: #ffffff;
+            font-size: 10px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .exploree-button:hover {
+            background-color: #1c7694;
+        }
+
+        .category-container {
+            margin-top: 80px;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .category-image {
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            animation: slide-animation 20s linear infinite;
+        }
+
+        @keyframes slide-animation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
         .alert-container {
             width: 100%;
             text-align: center;
@@ -82,8 +126,7 @@
             margin-left: 220px;
             padding: 20px;
         }
-
-        .content h1 {
+            .content h1 {
             font-family: 'Oswald', sans-serif;
             margin-bottom: 20px;
             color: #9f608f; /* Custom color */
@@ -95,18 +138,20 @@
     {% include 'admin/sidebar/sidebar.html.twig' %}
 
     <div class="content">
-        <h1><i class="fas fa-tools mr-2"></i>  Technician Profile</h1>
+        <h1><i class="fas fa-box mr-2"></i> Produit Details</h1>
 
-        <div class="profile-container">
+        <div class="product-details-container">
             <div class="left-section">
-                <img src="{{ asset('images/tech' ~ technecien.id ~ '.jpg') }}" alt="Profile Picture">
+                <img src="{{ asset('images/' ~ produit.id ~ '.jpg') }}" alt="Product Image">
             </div>
             <div class="right-section">
-                <h2 class="product-title">{{ technecien.Prenom }} {{ technecien.Nom }}</h2>
-                <p class="product-price">Email: {{ technecien.email }}</p>
-                <p class="product-price">Phone: +{{ technecien.phone }}</p>
-                <!-- Add more details as needed -->
-                <a href="{{ path('app_technecien_index') }}" class="back-to-list-btn">
+                <h2 class="product-title">{{ produit.Designation }}</h2>
+                <div class="product-price">{{ produit.Prix }} DT</div>
+                <div class="product-description">
+                    <!-- You can add more product details here -->
+                    <p>Some additional description or details about the product can go here.</p>
+                </div>
+                <a href="{{ path('app_produits_index') }}" class="back-to-list-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                         <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
                     </svg>

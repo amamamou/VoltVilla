@@ -21,16 +21,23 @@ class ProduitController extends AbstractController
             'produits' => $produitRepository->findAll(),
         ]);
     }
-    #[Route('/produits', name: 'app_produits_index', methods: ['GET'])]
+
+    #[Route('/admin', name: 'app_produits_index', methods: ['GET'])]
     public function produits(ProduitRepository $produitRepository): Response
     {
         return $this->render('admin/produit/produits.html.twig', [
             'produits' => $produitRepository->findAll(),
         ]);
     }
-    
 
-    
+    #[Route('/admin/{id}', name: 'app_produits_admin', methods: ['GET'])]
+    public function admin(Produit $produit): Response
+    {
+        return $this->render('admin/produit/produit.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
+
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,7 +49,7 @@ class ProduitController extends AbstractController
             $entityManager->persist($produit);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/produit/new.html.twig', [
@@ -51,7 +58,7 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produit_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_produit_show', methods: ['GET'])]
     public function show(Produit $produit): Response
     {
         return $this->render('produit/show.html.twig', [
@@ -59,19 +66,7 @@ class ProduitController extends AbstractController
         ]);
     }
 
-
-
-
-    #[Route('/{id}', name: 'app_produit_showsadmin', methods: ['GET'])]
-    public function admin(Produit $produit): Response
-    {
-        return $this->render('admin/produit/show.html.twig', [
-            'produit' => $produit,
-        ]);
-    }
-
-
-    #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProduitType::class, $produit);
@@ -89,24 +84,17 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
-public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
-{
-    // Check if the CSRF token is valid
-    if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
-        // Remove the entity and flush the changes
-        $entityManager->remove($produit);
-        $entityManager->flush();
+    #[Route('/delete/{id}', name: 'app_produit_delete', methods: ['POST'])]
+    public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($produit);
+            $entityManager->flush();
+            $this->addFlash('success', 'Produit deleted successfully');
+        } else {
+            $this->addFlash('error', 'CSRF token invalid');
+        }
 
-        // Add a flash message to indicate successful deletion
-        $this->addFlash('success', 'Produit deleted successfully');
-    } else {
-        // CSRF token is invalid
-        $this->addFlash('error', 'CSRF token invalid');
+        return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    // Redirect to the index page after deletion
-    return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
-}
-
 }

@@ -93,7 +93,13 @@
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>DateInterv</th>
+                    <th>Date Intervention</th>
+                    <th>Client ID</th>
+                    <th>Client Image</th>
+                    <th>Technician ID</th>
+                    <th>Technician Image</th>
+                    <th>Status</th>
+                    <th>Reclamation ID</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -102,6 +108,24 @@
                     <tr>
                         <td>{{ intervention.id }}</td>
                         <td>{{ intervention.DateInterv ? intervention.DateInterv|date('Y-m-d') : '' }}</td>
+                        <td>{{ intervention.CodeClt ? intervention.CodeClt.id : 'N/A' }}</td>
+                        <td>
+                            {% if intervention.CodeClt %}
+                                <img src="{{ asset('images/user' ~ intervention.CodeClt.id ~ '.png') }}" alt="Client Image" width="50" height="50">
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>{{ intervention.CodeTech ? intervention.CodeTech.id : 'N/A' }}</td>
+                        <td>
+                            {% if intervention.CodeTech %}
+                                <img src="{{ asset('images/tech' ~ intervention.CodeTech.id ~ '.jpg') }}" alt="Technician Image" width="50" height="50">
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>{{ intervention.status }}</td>
+                        <td>{{ intervention.reclamation ? intervention.reclamation.id : 'N/A' }}</td>
                         <td>
                             <div class="btn-group custom-button-group" role="group" aria-label="Intervention actions">
                                 <a href="{{ path('app_intervention_show', {'id': intervention.id}) }}" class="btn btn-primary btn-sm">Show</a>
@@ -112,7 +136,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="3" class="text-center">No interventions found</td>
+                        <td colspan="9" class="text-center">No interventions found</td>
                     </tr>
                 {% endfor %}
             </tbody>
