@@ -6,6 +6,7 @@ use App\Entity\Intervention;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class InterventionType extends AbstractType
 {
@@ -17,6 +18,11 @@ class InterventionType extends AbstractType
             ->add('CodeClt')
             ->add('ReferencePd')
             ->add('CodeTech')
+            ->add('reclamation', EntityType::class, [
+                'class' => 'App\Entity\Reclamation',
+                'choice_label' => 'id',
+                // You can customize other options as needed
+            ])
         ;
     }
 

@@ -2,10 +2,107 @@
 
 {% block title %}New Intervention{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Custom styles for the New Intervention page */
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #9f608f; /* Custom color */
+        }
+
+        button[type="submit"] {
+            background-color: #9f9f60; /* Custom color */
+            border-color: #9f9f60; /* Custom color */
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #7e7e47; /* Custom hover color */
+        }
+
+        a.btn {
+            background-color: #ff00bf;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        a.btn:hover {
+            background-color: #d1009b; /* Custom hover color */
+        }
+
+        a.btn:not(:last-child) {
+            margin-right: 10px;
+        }
+           .content h1 {
+            font-family: 'Oswald', sans-serif;
+            margin-bottom: 20px;
+            color: #9f608f; /* Custom color */
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <h1>Create new Intervention</h1>
+    {% include 'admin/sidebar/sidebar.html.twig' %}
 
-    {{ include('intervention/_form.html.twig') }}
+    <div class="content">
+  <h1><i class="fas fa-wrench mr-2"></i>Create new Intervention</h1>
+        <form action="{{ path('app_intervention_new') }}" method="post">
+            {{ include('intervention/_form.html.twig') }}
 
-    <a href="{{ path('app_intervention_index') }}">back to list</a>
+            <button type="submit">Save</button>
+        </form>
+
+        <a href="{{ path('app_intervention_index') }}" class="btn"><i class="fas fa-chevron-left"></i> Back to list</a>
+    </div>
 {% endblock %}

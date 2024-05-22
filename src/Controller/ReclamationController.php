@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/reclamation')]
 class ReclamationController extends AbstractController // Extend AbstractController
@@ -137,7 +139,7 @@ public function index(ReclamationRepository $reclamationRepository): Response
     ]);
 }
 #[Route('/{id}/intervention', name: 'app_reclamation_intervention', methods: ['POST'])]
-public function intervention(Request $request, Reclamation $reclamation, EntityManagerInterface $entityManager): Response
+public function intervention(Request $request, Reclamation $reclamation, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator): Response
 {
     $interventionStatus = $request->request->get('intervention_status');
 
@@ -160,8 +162,12 @@ public function intervention(Request $request, Reclamation $reclamation, EntityM
         // You can add a flash message or handle this situation according to your application's logic
     }
 
-    // Redirect back to the reclamation show page
-    return $this->redirectToRoute('app_reclamation_show', ['id' => $reclamation->getId()]);
+    // Generate the URL for the user's profile page
+// Generate the URL for the user's profile page
+$profileUrl = $urlGenerator->generate('app_user_show', ['id' => $reclamation->getCodeClt()->getId()]);
+    
+    // Return a RedirectResponse to the user's profile page
+    return new RedirectResponse($profileUrl);
 }
 
 

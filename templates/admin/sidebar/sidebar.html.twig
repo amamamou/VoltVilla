@@ -77,14 +77,16 @@
         <a href="{{ path('app_technecien_index') }}" class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-tools mr-2"></i>Techniciens</a>
         <a href="{{ path('app_reclamation_index') }}" class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-exclamation-triangle mr-2"></i>Reclamations</a>
         <a href="{{ path('app_intervention_index') }}" class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-wrench mr-2"></i>Interventions</a>
-         <a href="#" class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-user mr-2"></i>Profile</a>
+        <a href="#" class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-user mr-2"></i>Profile</a>
         <a href="#"  class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-cog mr-2"></i>Settings</a>
-        <a href="#"class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-question-circle mr-2"></i>Help</a>
+        <!-- Logout link -->
+        <a href="{{ path('app_logout') }}" class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
     </div>
     <!-- Copyright notice -->
     <div class="text-center mt-5 text-white">
         <small>&copy; 2024 VOLTVILLA. All rights reserved.</small>
     </div>
+
 </div>
 
 <!-- Bootstrap JS (Optional, if you need JavaScript functionality) -->
