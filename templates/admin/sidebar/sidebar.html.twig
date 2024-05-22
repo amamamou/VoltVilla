@@ -69,7 +69,9 @@
         <h2 class="h5">VOLTVILLA</h2>
     </div>
     <div class="sidebar-menu list-group list-group-flush">
-        <a class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-home mr-2"></i>Dashboard Home</a>
+        <a class="list-group-item list-group-item-action bg-dark text-light" href="{{ path('admin_dashboard') }}">
+            <i class="fas fa-home mr-2"></i>Dashboard Home
+        </a>
         <a href="{{ path('app_produits_index') }}" class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-box mr-2"></i>Products</a>
         <a href="{{ path('app_user_index') }}" class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-users mr-2"></i>Users</a>
         <a href="{{ path('app_technecien_index') }}" class="list-group-item list-group-item-action bg-dark text-light"><i class="fas fa-tools mr-2"></i>Techniciens</a>

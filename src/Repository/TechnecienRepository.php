@@ -20,7 +20,13 @@ class TechnecienRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Technecien::class);
     }
-
+    public function countTechnicians(): int
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 //    /**
 //     * @return Technecien[] Returns an array of Technecien objects
 //     */
@@ -47,12 +53,12 @@ class TechnecienRepository extends ServiceEntityRepository
 //    }
 
   // Define the method to find available technicians
-  public function findAvailableTechnicians()
-  {
-      return $this->createQueryBuilder('t')
-          ->where('t.available = :available')
-          ->setParameter('available', true) // Assuming `true` represents available
-          ->getQuery()
-          ->getResult();
-  }
+  public function findAvailableTechnicians(): array
+{
+    return $this->createQueryBuilder('t')
+        ->where('t.available = true')
+        ->getQuery()
+        ->getResult();
+}
+
 }

@@ -45,10 +45,7 @@
             vertical-align: middle;
         }
 
-        .content h1 {
-            font-family: 'Oswald', sans-serif; /* Using Oswald for titles */
-            text-align: center;
-        }
+     
 
         /* Custom Button Group */
         .custom-button-group {
@@ -67,6 +64,11 @@
             border-color: #007bff;
             color: #fff;
         }
+            .custom-button-group .btn-primary {
+            background-color: #9f9f60; /* Custom color */
+            border-color: #9f9f60; /* Custom color */
+            color: #fff;
+        }
 
         .custom-button-group .btn-secondary {
             background-color: #6c757d; /* Dark Gray */
@@ -80,6 +82,20 @@
             color: #fff;
             margin-top: 16px;
         }
+
+        .technecien-profile-picture {
+    width: 50px; /* Adjust the width as needed */
+    height: 50px; /* Adjust the height as needed */
+    border-radius: 50%; /* Make it round */
+    display: block; /* Ensure it's a block-level element */
+    margin: 0 auto; /* Center horizontally */
+}
+    .content h1 {
+            font-family: 'Oswald', sans-serif;
+            margin-bottom: 20px;
+            color: #9f608f; /* Custom color */
+        }
+
     </style>
 {% endblock %}
 
@@ -87,22 +103,23 @@
     {% include 'admin/sidebar/sidebar.html.twig' %}
 
     <div class="content">
-        <h1>Intervention index</h1>
-
+        <h1><i class="fas fa-wrench mr-2"></i>Intervention index</h1>
+                <a href="{{ path('app_intervention_new') }}" class="btn btn-dangerr" ><i class="fas fa-plus"></i> Create new one</a>
         <table class="table table-hover table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Date Intervention</th>
-                    <th>Client ID</th>
-                    <th>Client Image</th>
-                    <th>Technician ID</th>
-                    <th>Technician Image</th>
-                    <th>Status</th>
-                    <th>Reclamation ID</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+          <thead class="thead-dark">
+    <tr>
+        <th><i class="fas fa-id-badge"></i> ID</th>
+        <th><i class="far fa-calendar-alt"></i> Date Intervention</th>
+        <th><i class="fas fa-user"></i> Client ID</th>
+        <th><i class="far fa-image"></i> Client Image</th>
+        <th><i class="fas fa-tools"></i> Technician ID</th>
+        <th><i class="far fa-image"></i> Technician Image</th>
+        <th><i class="fas fa-info-circle"></i> Status</th>
+        <th><i class="fas fa-file-alt"></i> Reclamation ID</th>
+        <th><i class="fas fa-cogs"></i> Actions</th>
+    </tr>
+</thead>
+
             <tbody>
                 {% for intervention in interventions %}
                     <tr>
@@ -111,7 +128,7 @@
                         <td>{{ intervention.CodeClt ? intervention.CodeClt.id : 'N/A' }}</td>
                         <td>
                             {% if intervention.CodeClt %}
-                                <img src="{{ asset('images/user' ~ intervention.CodeClt.id ~ '.png') }}" alt="Client Image" width="50" height="50">
+                                <img src="{{ asset('images/user' ~ intervention.CodeClt.id ~ '.png') }}" class="technecien-profile-picture" alt="Client Image" width="50" height="50">
                             {% else %}
                                 N/A
                             {% endif %}
@@ -119,7 +136,7 @@
                         <td>{{ intervention.CodeTech ? intervention.CodeTech.id : 'N/A' }}</td>
                         <td>
                             {% if intervention.CodeTech %}
-                                <img src="{{ asset('images/tech' ~ intervention.CodeTech.id ~ '.jpg') }}" alt="Technician Image" width="50" height="50">
+                                <img src="{{ asset('images/tech' ~ intervention.CodeTech.id ~ '.jpg') }}" class="technecien-profile-picture" alt="Technician Image" width="50" height="50">
                             {% else %}
                                 N/A
                             {% endif %}
@@ -128,7 +145,7 @@
                         <td>{{ intervention.reclamation ? intervention.reclamation.id : 'N/A' }}</td>
                         <td>
                             <div class="btn-group custom-button-group" role="group" aria-label="Intervention actions">
-                                <a href="{{ path('app_intervention_show', {'id': intervention.id}) }}" class="btn btn-primary btn-sm">Show</a>
+                                <a href="{{ path('app_intervention_show', {'id': intervention.id}) }}" class="btn btn-primary btn-sm"  style="background-color: #9f9f60;">Show</a>
                                 <a href="{{ path('app_intervention_edit', {'id': intervention.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
                                 <div>{{ include('intervention/_delete_form.html.twig', {'button_class': 'btn btn-danger btn-sm'}) }}</div>
                             </div>
@@ -142,6 +159,5 @@
             </tbody>
         </table>
 
-        <a href="{{ path('app_intervention_new') }}" class="btn btn-primary">Create new</a>
     </div>
 {% endblock %}

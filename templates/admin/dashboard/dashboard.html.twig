@@ -1,4 +1,3 @@
-{# templates/admin/dashboard.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Admin Dashboard{% endblock %}
@@ -6,10 +5,9 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css">
     <style>
         /* Custom styles for the admin dashboard */
-
-        /* Sidebar */
         .sidebar {
             background-color: #333;
             color: #fff;
@@ -22,23 +20,14 @@
             padding-top: 20px;
         }
 
-        .sidebar-item {
-            padding: 10px 20px;
-            border-bottom: 1px solid #555;
-            cursor: pointer;
-        }
-
-        .sidebar-item:hover {
-            background-color: #444;
-        }
-
-        /* Content */
         .content {
             margin-left: 220px;
             padding: 20px;
         }
 
         .dashboard-heading {
+            font-family: 'Oswald', sans-serif;
+            text-align:center;
             font-size: 24px;
             margin-bottom: 20px;
             color: #333;
@@ -64,171 +53,142 @@
             gap: 20px;
         }
 
-        .card {
-            width: calc(33.33% - 20px);
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
+    .count-card {
+        flex: 1 1 auto; /* Adjust card size */
+        min-width: 200px; /* Adjust minimum width */
+        background-color: #343a40; /* Dark background color */
+        color: #fff; /* Text color */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+    .count-card:hover {
+        transform: translateY(-5px);
+    }
 
-        .card-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
+    .count-card i {
+        margin-right: 10px;
+    }
 
-        .card-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
+    .count-card .count {
+        font-size: 18px;
+        font-weight: bold;
+    }
 
-        .card-description {
-            font-size: 16px;
-            color: #666;
-        }
+    .chart-container {
+        position: relative;
+        margin: 60px 0 40px; /* Add margin to the top */
+        height: 550px; /* Increase height */
+        width: 100%;
+    }
+
+    .count-cards {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
     </style>
 {% endblock %}
 
 {% block body %}
-    <div class="sidebar">
-        <div class="sidebar-item">
-            <i class="fas fa-home"></i> Dashboard
-        </div>
-        <div class="sidebar-item">
-            <i class="fas fa-users"></i> Users
-        </div>
-        <div class="sidebar-item">
-            <i class="fas fa-tools"></i> Techniciens
-        </div>
-        <div class="sidebar-item">
-            <i class="fas fa-box"></i> Products
-        </div>
-        <div class="sidebar-item">
-            <i class="fas fa-exclamation-triangle"></i> Reclamations
-        </div>
-        <div class="sidebar-item">
-            <i class="fas fa-wrench"></i> Interventions
-        </div>
-    </div>
+    {% include 'admin/sidebar/sidebar.html.twig' %}
 
     <div class="content">
-        <h1 class="dashboard-heading">Welcome to the Admin Dashboard</h1>
 
+        <!-- Cards displaying counts -->
+        <div class="count-cards">
+            <div class="count-card">
+                <i class="fas fa-users"></i>
+                <span class="count">Users {{ userCount }}</span>
+            </div>
+            <div class="count-card">
+                <i class="fas fa-tools"></i>
+                <span class="count">Techniciens {{ technicianCount }}</span>
+            </div>
+            <div class="count-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span class="count">Reclamations {{ reclamationCount }}</span>
+            </div>
+            <div class="count-card">
+                <i class="fas fa-box"></i>
+                <span class="count">Produits {{ productCount }}</span>
+            </div>
+        </div>
+<br>
         <div class="section">
-            <h2 class="section-heading">Users</h2>
-            <div class="section-content">
-                <!-- Placeholder content for Users section -->
-                <div class="card">
-                    <img src="https://via.placeholder.com/400x200" alt="User" class="card-img">
-                    <div class="card-title">John Doe</div>
-                    <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                </div>
-                <div class="card">
-                    <img src="https://via.placeholder.com/400x200" alt="User" class="card-img">
-                    <div class="card-title">Jane Smith</div>
-                    <div class="card-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                </div>
-                <div class="card">
-                    <img src="https://via.placeholder.com/400x200" alt="User" class="card-img">
-                    <div class="card-title">Alice Johnson</div>
-                    <div class="card-description">Ut
-    <div class="section">
-        <h2 class="section-heading">Techniciens</h2>
-        <div class="section-content">
-            <!-- Placeholder content for Techniciens section -->
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Technicien" class="card-img">
-                <div class="card-title">Mark Johnson</div>
-                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Technicien" class="card-img">
-                <div class="card-title">Emily Watson</div>
-                <div class="card-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Technicien" class="card-img">
-                <div class="card-title">Michael Brown</div>
-                <div class="card-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <h2 class="section-heading"><i class="fas fa-chart-bar mr-2"></i>Overview</h2>
+            <div class="chart-container">
+                <canvas id="overviewChart"></canvas>
             </div>
         </div>
-    </div>
 
-    <div class="section">
-        <h2 class="section-heading">Products</h2>
-        <div class="section-content">
-            <!-- Placeholder content for Products section -->
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Product" class="card-img">
-                <div class="card-title">Smartphone</div>
-                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Product" class="card-img">
-                <div class="card-title">Laptop</div>
-                <div class="card-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Product" class="card-img">
-                <div class="card-title">TV</div>
-                <div class="card-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-            </div>
-        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+ <script>
+    var userData = {{ userCount }};
+    var technicianData = {{ technicianCount }};
+    var interventionData = {{ interventionCount }};
+    var reclamationData = {{ reclamationCount }};
+    var productData = {{ productCount }};
 
-    <div class="section">
-        <h2 class="section-heading">Reclamations</h2>
-        <div class="section-content">
-            <!-- Placeholder content for Reclamations section -->
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Reclamation" class="card-img">
-                <div class="card-title">Faulty Device</div>
-                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Reclamation" class="card-img">
-                <div class="card-title">Late Delivery</div>
-                <div class="card-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Reclamation" class="card-img">
-                <div class="card-title">Damaged Product</div>
-                <div class="card-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-            </div>
-        </div>
-    </div>
+    var ctx = document.getElementById('overviewChart').getContext('2d');
+    var overviewChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Users', 'Technicians', 'Interventions', 'Reclamations', 'Products'],
+            datasets: [
+                {
+                    label: 'Users',
+                    data: [userData, 0, 0, 0, 0],
+                    backgroundColor: 'rgba(255, 179, 218, 0.2)', // Users
+                    borderColor: 'rgb(153, 0, 77)', // Users
+                    borderWidth: 1
+                },
+                {
+                    label: 'Technicians',
+                    data: [0, technicianData, 0, 0, 0],
+                    backgroundColor: 'rgba(143, 188, 143, 0.2)', // Technicians
+                    borderColor: 'rgb(57, 96, 57)', // Technicians
+                    borderWidth: 1
+                },
+                {
+                    label: 'Interventions',
+                    data: [0, 0, interventionData, 0, 0],
+                    backgroundColor: 'rgba(173, 216, 230, 0.2)', // Interventions
+                    borderColor: 'rgba(54, 162, 235, 1)', // Interventions
+                    borderWidth: 1
+                },
+                {
+                    label: 'Reclamations',
+                    data: [0, 0, 0, reclamationData, 0],
+                    backgroundColor: 'rgba(205, 133, 63, 0.2)', // Reclamations
+                    borderColor: 'rgb(142, 89, 37)', // Reclamations
+                    borderWidth: 1
+                },
+                {
+                    label: 'Products',
+                    data: [0, 0, 0, 0, productData],
+                    backgroundColor: 'rgba(255, 240, 153, 0.2)', // Products
+                    borderColor: 'rgb(230, 195, 0)', // Products
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
 
-    <div class="section">
-        <h2 class="section-heading">Interventions</h2>
-        <div class="section-content">
-            <!-- Placeholder content for Interventions section -->
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Intervention" class="card-img">
-                <div class="card-title">Repair Request</div>
-                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Intervention" class="card-img">
-                <div class="card-title">Installation</div>
-                <div class="card-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Intervention" class="card-img">
-                <div class="card-title">Maintenance</div>
-                <div class="card-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 {% endblock %}

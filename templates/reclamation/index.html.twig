@@ -80,6 +80,14 @@
             border-color: #dc3545;
             color: #fff;
         }
+        .technecien-profile-picture {
+            width: 50px; /* Adjust the width as needed */
+            height: 50px; /* Adjust the height as needed */
+            border-radius: 50%; /* Make it round */
+            display: block; /* Ensure it's a block-level element */
+            margin: 0 auto; /* Center horizontally */
+        }
+
     </style>
 {% endblock %}
 
@@ -110,9 +118,9 @@
                         <td>{{ reclamation.DateReclamation ? reclamation.DateReclamation|date('Y-m-d H:i:s') : '' }}</td>
                         <td>{{ reclamation.Description }}</td>
                         <td>{{ reclamation.CodeClt.id }}</td>
-                        <td><img src="{{ asset('images/user' ~ reclamation.CodeClt.id ~ '.png') }}" alt="User Profile Picture" width="50" height="50"></td>
+                        <td><img src="{{ asset('images/user' ~ reclamation.CodeClt.id ~ '.png') }}" class="technecien-profile-picture" alt="User Profile Picture" width="50" height="50"></td>
                         <td>{{ reclamation.ReferencePd.id }}</td>
-                        <td><img src="{{ asset('images/' ~ reclamation.ReferencePd.id ~ '.jpg') }}" alt="Product Picture" width="50" height="50"></td>
+                        <td><img src="{{ asset('images/' ~ reclamation.ReferencePd.id ~ '.jpg') }}" class="technecien-profile-picture" alt="Product Picture" width="50" height="50"></td>
                         <td>{{ reclamation.intervention ? reclamation.intervention.id : 'Pending' }}</td>
                         <td class="text-center">
                            
